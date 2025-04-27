@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
+    <title>Trang chủ - TCC</title>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,7 +145,6 @@
 <jsp:include page="../layout/header.jsp"/>
 <jsp:include page="../layout/banner.jsp"/>
 
-<!-- San Pham khuyen mai -->
 <div class="container">
     <div class="row product-primary mb-5">
         <div class="group-title">
@@ -193,62 +192,83 @@
         </c:forEach>
 
     </div>
-    <div class="container py-1">
-        <form id="searchFilterForm" class="row g-4">
-            <!-- Khoảng giá -->
-            <div class="row">
-            <div class="col-8">
-            <div class="row">
-                <label class="form-label fw-bold mb-3">Chọn khoảng giá:</label>
-                <div class="d-flex flex-wrap gap-2">
-                    <input type="radio" class="btn-check" name="price" id="priceDefault" value=" " autocomplete="off"
-                           <c:if test="${param.price == ' '}">checked</c:if>>
-                    <label class="btn btn-outline-primary" for="priceDefault">Tất cả</label>
+    <div class="row search-filter ps-5 pe-5">
+        <form id="searchFilterForm" class="row align-items-start" >
+            <div class="col-md-3 col-sm-6 form-group">
+                <label for="category" class="form-label">Danh mục</label>
+                <select class="form-select" id="category" name="category">
+                    <option value=" ">Chọn danh mục</option>
+                    <c:forEach var="category" items="${categories}">
+                        <option value="${category.name}"
+                                <c:if test="${category.name == param.category}">selected</c:if>>${category.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-                    <input type="radio" class="btn-check" name="price" id="price1" value="duoi-10-trieu" autocomplete="off"
-                           <c:if test="${param.price == 'duoi-10-trieu'}">checked</c:if>>
-                    <label class="btn btn-outline-primary" for="price1">Dưới 10 triệu</label>
-
-                    <input type="radio" class="btn-check" name="price" id="price2" value="10-15-trieu" autocomplete="off"
-                           <c:if test="${param.price == '10-15-trieu'}">checked</c:if>>
-                    <label class="btn btn-outline-primary" for="price2">10-15 triệu</label>
-
-                    <input type="radio" class="btn-check" name="price" id="price3" value="15-20-trieu" autocomplete="off"
-                           <c:if test="${param.price == '15-20-trieu'}">checked</c:if>>
-                    <label class="btn btn-outline-primary" for="price3">15-20 triệu</label>
-
-                    <input type="radio" class="btn-check" name="price" id="price4" value="tren-20-trieu" autocomplete="off"
-                           <c:if test="${param.price == 'tren-20-trieu'}">checked</c:if>>
-                    <label class="btn btn-outline-primary" for="price4">Trên 20 triệu</label>
+            <!-- Sorting Radios -->
+            <div class="col-md-3 col-sm-6 form-group">
+                <label class="form-label d-block">Sắp xếp theo giá</label>
+                <div class="d-flex flex-column">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sortBy" id="sortDefault" value=" "
+                               <c:if test="${param.sortBy == ' '}">checked</c:if>>
+                        <label class="form-check-label" for="sortDefault">Mặc định</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sortBy" id="sortAsc" value="asc"
+                               <c:if test="${param.sortBy == 'asc'}">checked</c:if>>
+                        <label class="form-check-label" for="sortAsc">Tăng dần</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sortBy" id="sortDesc" value="desc"
+                               <c:if test="${param.sortBy == 'desc'}">checked</c:if>>
+                        <label class="form-check-label" for="sortDesc">Giảm dần</label>
+                    </div>
                 </div>
             </div>
 
-            <!-- Sắp xếp -->
-            <div class="col-12">
-                <label class="form-label fw-bold mb-3">Sắp xếp:</label>
-                <div class="d-flex flex-wrap gap-2">
-                    <input type="radio" class="btn-check" name="sortBy" id="sortDefault" value=" " autocomplete="off"
-                           <c:if test="${param.sortBy == ' '}">checked</c:if>>
-                    <label class="btn btn-outline-success" for="sortDefault">Mặc định</label>
-
-                    <input type="radio" class="btn-check" name="sortBy" id="sortAsc" value="asc" autocomplete="off"
-                           <c:if test="${param.sortBy == 'asc'}">checked</c:if>>
-                    <label class="btn btn-outline-success" for="sortAsc">Giá tăng dần</label>
-
-                    <input type="radio" class="btn-check" name="sortBy" id="sortDesc" value="desc" autocomplete="off"
-                           <c:if test="${param.sortBy == 'desc'}">checked</c:if>>
-                    <label class="btn btn-outline-success" for="sortDesc">Giá giảm dần</label>
+            <!-- Price Range Radios -->
+            <div class="col-md-4 col-sm-12 form-group">
+                <label class="form-label d-block">Khoảng giá</label>
+                <div class="d-flex flex-wrap">
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="radio" name="price" id="priceRangeDefault" value=" "
+                               <c:if test="${param.price == ' '}">checked</c:if>>
+                        <label class="form-check-label" for="priceRangeDefault">Mặc định</label>
+                    </div>
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="radio" name="price" id="priceRange1" value="duoi-10-trieu"
+                               <c:if test="${param.price == 'duoi-10-trieu'}">checked</c:if>>
+                        <label class="form-check-label" for="priceRange1">Dưới 10 triệu</label>
+                    </div>
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="radio" name="price" id="priceRange2" value="10-15-trieu"
+                               <c:if test="${param.price == '10-15-trieu'}">checked</c:if>>
+                        <label class="form-check-label" for="priceRange2">Từ 10-15 triệu</label>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="radio" name="price" id="priceRange3" value="15-20-trieu"
+                               <c:if test="${param.price == '15-20-trieu'}">checked</c:if>>
+                        <label class="form-check-label" for="priceRange3">Từ 15-20 triệu</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="priceRange4" value="tren-20-trieu"
+                               <c:if test="${param.price == 'tren-20-trieu'}">checked</c:if>>
+                        <label class="form-check-label" for="priceRange4">Trên 20 triệu</label>
+                    </div>
                 </div>
             </div>
-            <!-- Nút tìm kiếm -->
-            <div class="col-12 text-end">
-                <button type="submit" class="btn btn-primary px-4">Tìm kiếm</button>
-            </div>
 
+            <!-- Search Button -->
+            <div class="col-md-2 col-sm-12 form-group d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+            </div>
         </form>
-        </div>
-    </div>
 
+
+    </div>
 
     <div class="row g-4 p-5 d-flex justify-content-start">
         <c:if test="${totalPages == 0}">
@@ -350,13 +370,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/client/js/main.js"></script>
 <script>
-    <script>
-        $(document).ready(function () {
-            $('input[name="price"], input[name="sortBy"]').change(function () {
-                $('#searchFilterForm').submit();
-            });
-        });
-    </script>
+    // Add your custom JavaScript here if needed
 </script>
 </body>
 </html>

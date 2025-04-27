@@ -4,10 +4,7 @@
 <div class="container-fluid py-4 mb-5 hero-header">
     <div class="container py-3">
         <div class="row g-5 align-items-center">
-            <div class="col-md-12 col-lg-4">
-
-            </div>
-            <div class="col-md-12 col-lg-8">
+            <div class="col-md-12 col-lg-12">
                 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active" onclick="window.location.href='http://localhost:8080/product/14';" style="cursor: pointer;">

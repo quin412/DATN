@@ -1,0 +1,362 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="/client/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/client/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/client/css/style.css" rel="stylesheet">
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" rel="stylesheet">
+    <style>
+        .page-link.disabled {
+            color: var(--bs-pagination-disabled-color);
+            pointer-events: none;
+            background-color: var(--bs-pagination-disabled-bg);
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .product-card .product-details {
+            flex-grow: 1;
+        }
+
+        .product-card .add-to-cart {
+            text-align: center;
+            margin-top: auto;
+            padding-bottom: 20px; /* Adjust this value to move the button higher */
+        }
+
+        .product-price {
+            text-align: center;
+        }
+
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: grey;
+            display: block;
+        }
+
+        .product-price .discounted-price {
+            color: red;
+            display: block;
+        }
+
+        .search-filter {
+            margin-bottom: 30px;
+        }
+
+        .search-filter .form-group {
+            margin-bottom: 20px;
+        }
+
+        .abovepage {
+            position: fixed; /* Stays fixed as the page scrolls */
+            bottom: 80px; /* Places it above the "Back to Top" button */
+            right: 20px; /* Aligns it to the right */
+            z-index: 1050; /* Ensures it appears above other elements, including "Back to Top" */
+            padding: 10px; /* Adds padding inside the widget */
+        }
+
+        .product-primary {
+            background-image: url('/images/z5579353903011_379d9c2c33c4d57a6462d51bd1e4af87.jpg');
+            margin: 16px 0;
+            padding: 60px 16px 24px;
+            border-radius: 15px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .group-title{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 0 0 30px;
+        }
+
+        .group-left {
+            margin: 0;
+            color: #FFF;
+            font-size: 50px;
+            font-style: italic;
+            font-weight: 700;
+            line-height: 50px;
+            text-transform: uppercase;
+            display: flex        ;
+            align-items: baseline;
+        }
+
+         .btn-view {
+            color: #FFF;
+            font-size: 14px;
+            font-weight: 400;
+            text-decoration-line: underline;
+            text-transform: uppercase;
+        }
+        .messenger-floating {
+            position: fixed;
+            bottom: 140px;
+            right: 20px;
+            z-index: 1050;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Spinner Start -->
+<div id="spinner"
+     class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+<!-- Spinner End -->
+
+<jsp:include page="../layout/header.jsp"/>
+<jsp:include page="../layout/banner.jsp"/>
+
+<!-- San Pham khuyen mai -->
+<div class="container">
+    <div class="row product-primary mb-5">
+        <div class="group-title">
+            <p class="group-left" style="min-height: 50px">
+            </p>
+            <a href="#" class="btn-view">Xem thêm khuyến mãi +</a>
+        </div>
+        <c:forEach var="product" items="${recommend_products}">
+            <div class="col-md-12 col-lg-3">
+                <div class="rounded bg-white position-relative fruite-item border border-primary rounded-bottom product-card">
+                    <div class="fruite-img">
+                        <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
+                    </div>
+                    <div class="text-white bg-danger px-3 py-1 position-absolute"
+                         style="top: -1px; right: -1px; border-radius: 50%;">
+                        -<fmt:formatNumber type="number" value="${product.discount}"/>%
+                    </div>
+                    <div class="p-2 product-details text-center">
+                        <h4 style="font-size: 15px;">
+                            <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
+                        </h4>
+                        <div class="product-price">
+                            <span class="original-price"><fmt:formatNumber type="number"
+                                                                           value="${product.price}"/> đ</span>
+                            <span class="discounted-price"><fmt:formatNumber type="number"
+                                                                             value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+                        </div>
+                    </div>
+                    <div class="add-to-cart pb-2">
+                        <form action="/add-product-to-cart/${product.productId}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-danger"></i>
+                                Thêm vào giỏ hàng
+                            </button>
+                            <a href="/product/${product.productId}"
+                               class="btn border border-secondary rounded-pill px-3 text-primary mt-2">
+                                <i class="fa fa-eye me-2 text-danger"></i>
+                                Chi tiết
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+
+    </div>
+    <div class="container py-1">
+        <form id="searchFilterForm" class="row g-4">
+            <!-- Khoảng giá -->
+            <div class="row">
+            <div class="col-8">
+            <div class="row">
+                <label class="form-label fw-bold mb-3">Chọn khoảng giá:</label>
+                <div class="d-flex flex-wrap gap-2">
+                    <input type="radio" class="btn-check" name="price" id="priceDefault" value=" " autocomplete="off"
+                           <c:if test="${param.price == ' '}">checked</c:if>>
+                    <label class="btn btn-outline-primary" for="priceDefault">Tất cả</label>
+
+                    <input type="radio" class="btn-check" name="price" id="price1" value="duoi-10-trieu" autocomplete="off"
+                           <c:if test="${param.price == 'duoi-10-trieu'}">checked</c:if>>
+                    <label class="btn btn-outline-primary" for="price1">Dưới 10 triệu</label>
+
+                    <input type="radio" class="btn-check" name="price" id="price2" value="10-15-trieu" autocomplete="off"
+                           <c:if test="${param.price == '10-15-trieu'}">checked</c:if>>
+                    <label class="btn btn-outline-primary" for="price2">10-15 triệu</label>
+
+                    <input type="radio" class="btn-check" name="price" id="price3" value="15-20-trieu" autocomplete="off"
+                           <c:if test="${param.price == '15-20-trieu'}">checked</c:if>>
+                    <label class="btn btn-outline-primary" for="price3">15-20 triệu</label>
+
+                    <input type="radio" class="btn-check" name="price" id="price4" value="tren-20-trieu" autocomplete="off"
+                           <c:if test="${param.price == 'tren-20-trieu'}">checked</c:if>>
+                    <label class="btn btn-outline-primary" for="price4">Trên 20 triệu</label>
+                </div>
+            </div>
+
+            <!-- Sắp xếp -->
+            <div class="col-12">
+                <label class="form-label fw-bold mb-3">Sắp xếp:</label>
+                <div class="d-flex flex-wrap gap-2">
+                    <input type="radio" class="btn-check" name="sortBy" id="sortDefault" value=" " autocomplete="off"
+                           <c:if test="${param.sortBy == ' '}">checked</c:if>>
+                    <label class="btn btn-outline-success" for="sortDefault">Mặc định</label>
+
+                    <input type="radio" class="btn-check" name="sortBy" id="sortAsc" value="asc" autocomplete="off"
+                           <c:if test="${param.sortBy == 'asc'}">checked</c:if>>
+                    <label class="btn btn-outline-success" for="sortAsc">Giá tăng dần</label>
+
+                    <input type="radio" class="btn-check" name="sortBy" id="sortDesc" value="desc" autocomplete="off"
+                           <c:if test="${param.sortBy == 'desc'}">checked</c:if>>
+                    <label class="btn btn-outline-success" for="sortDesc">Giá giảm dần</label>
+                </div>
+            </div>
+            <!-- Nút tìm kiếm -->
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary px-4">Tìm kiếm</button>
+            </div>
+
+        </form>
+        </div>
+    </div>
+
+
+    <div class="row g-4 p-5 d-flex justify-content-start">
+        <c:if test="${totalPages == 0}">
+            <div>Không tìm thấy sản phẩm</div>
+        </c:if>
+        <c:forEach var="product" items="${products}">
+            <div class="col-md-12 col-lg-3">
+                <div class="rounded position-relative fruite-item border border-primary rounded-bottom product-card">
+                    <div class="fruite-img">
+                        <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
+                    </div>
+                    <div class="text-white bg-danger px-3 py-1 position-absolute"
+                         style="top: -1px; right: -1px; border-radius: 50%;">
+                        -<fmt:formatNumber type="number" value="${product.discount}"/>%
+                    </div>
+                    <div class="p-4 product-details text-center">
+                        <h4 style="font-size: 15px;">
+                            <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
+                        </h4>
+                        <div class="product-price">
+                            <span class="original-price"><fmt:formatNumber type="number"
+                                                                           value="${product.price}"/> đ</span>
+                            <span class="discounted-price"><fmt:formatNumber type="number"
+                                                                             value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+                        </div>
+                    </div>
+                    <div class="add-to-cart">
+                        <form action="/add-product-to-cart/${product.productId}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                <i class="fa fa-shopping-bag me-2 text-danger"></i>
+                                Thêm vào giỏ hàng
+                            </button>
+                            <a href="/product/${product.productId}"
+                               class="btn border border-secondary rounded-pill px-3 text-primary mt-2">
+                                <i class="fa fa-eye me-2 text-danger"></i>
+                                Chi tiết
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+        <c:if test="${totalPages > 0}">
+            <div class="pagination d-flex justify-content-center mt-5">
+                <li class="page-item">
+                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                       href="/home?pageNum=${currentPage - 1}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <li class="page-item ${i eq currentPage ? 'active' : ''}">
+                        <a class="page-link" href="/home?pageNum=${i}">${i}</a>
+                    </li>
+                </c:forEach>
+                <li class="page-item">
+                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                       href="/home?pageNum=${currentPage + 1}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </div>
+        </c:if>
+    </div>
+    <div>
+        <jsp:include page="../layout/chatbotWidget.jsp"/>
+    </div>
+</div>
+<div>
+<a href="https://m.me/657435530778911" target="_blank" class="messenger-floating">
+    <img src="/images/messenger-icon.svg" alt="Messenger" width="50">
+</a>
+<a href="https://m.me/657435530778911" target="_blank">
+    <button class="btn btn-primary">💬 Chat với chúng tôi qua Messenger</button>
+</a>
+</div>
+<div class="abovepage">
+    <jsp:include page="../layout/chatbotWidget.jsp"/>
+</div>
+<jsp:include page="../layout/footer.jsp"/>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-danger py-3 fs-4 rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/client/lib/easing/easing.min.js"></script>
+<script src="/client/lib/waypoints/waypoints.min.js"></script>
+<script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/client/lib/counterup/counterup.min.js"></script>
+<script src="/client/lib/parallax/parallax.min.js"></script>
+<script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="/client/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/client/js/main.js"></script>
+<script>
+    <script>
+        $(document).ready(function () {
+            $('input[name="price"], input[name="sortBy"]').change(function () {
+                $('#searchFilterForm').submit();
+            });
+        });
+    </script>
+</script>
+</body>
+</html>

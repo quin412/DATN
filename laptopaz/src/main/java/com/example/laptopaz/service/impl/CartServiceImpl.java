@@ -27,66 +27,61 @@ public class CartServiceImpl implements CartService {
     public void handleAddProductToCart(String email, long productId, HttpSession session, long quantity) {
 
         Customer user = customerRepository.findByEmail(email);
-        if (user != null) {
-            // check user đã có Cart chưa ? nếu chưa -> tạo mới
-            Cart cart = cartRepository.findByCustomer(user);
+        if (user == null) {
+            throw new RuntimeException("USER_NOT_FOUND");
+        }
 
-            if (cart == null) {
-                // tạo mới cart
-                Cart otherCart = new Cart();
-                otherCart.setCustomer(user);
-                otherCart.setSum(0);
+        Cart cart = cartRepository.findByCustomer(user);
+        if (cart == null) {
+            cart = cartRepository.save(Cart.builder()
+                    .customer(user)
+                    .sum(0)
+                    .build());
+        }
 
-                cart = cartRepository.save(otherCart);
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("PRODUCT_NOT_FOUND");
+        }
+
+        Product realProduct = productOptional.get();
+
+        if (quantity <= 0 || quantity > realProduct.getQuantity()) {
+            throw new RuntimeException("INVALID_QUANTITY");
+        }
+
+        CartDetail oldDetail = cartDetailRepository.findByCartAndProduct(cart, realProduct);
+
+        if (oldDetail == null) {
+            CartDetail cd = CartDetail.builder()
+                    .cart(cart)
+                    .product(realProduct)
+                    .quantity(quantity)
+                    .build();
+
+            cd.setCreatedDate(LocalDateTime.now());
+            cd.setLastModifiedDate(LocalDateTime.now());
+            cartDetailRepository.save(cd);
+
+            long newSum = cart.getSum() + quantity;
+            cart.setSum((int) newSum);
+            cartRepository.save(cart);
+            session.setAttribute("sum", newSum);
+
+        } else {
+            long totalQuantity = oldDetail.getQuantity() + quantity;
+            if (totalQuantity > realProduct.getQuantity()) {
+                throw new RuntimeException("EXCEED_PRODUCT_QUANTITY");
             }
 
-            // save cart_detail
-            // tìm product by id
+            oldDetail.setQuantity(totalQuantity);
+            oldDetail.setLastModifiedDate(LocalDateTime.now());
+            cartDetailRepository.save(oldDetail);
 
-            Optional<Product> productOptional = productRepository.findById(productId);
-            if (productOptional.isPresent()) {
-                Product realProduct = productOptional.get();
-
-                // check sản phẩm đã từng được thêm vào giỏ hàng trước đây chưa ?
-                CartDetail oldDetail = cartDetailRepository.findByCartAndProduct(cart, realProduct);
-                //
-                if (oldDetail == null) {
-                    CartDetail cd = new CartDetail();
-                    cd.setCart(cart);
-                    cd.setProduct(realProduct);
-
-                    if (quantity >= 0 && quantity <= realProduct.getQuantity()) {
-                        cd.setQuantity(quantity);
-                    } else {
-                        throw new RuntimeException("ERROR_CART");
-                    }
-
-                    cd.setQuantity(quantity);
-
-                    cd.setCreatedDate(LocalDateTime.now());
-                    cd.setLastModifiedDate(LocalDateTime.now());
-                    cartDetailRepository.save(cd);
-
-                    // update cart (sum);
-                    int s = cart.getSum() + 1;
-                    cart.setSum(s);
-                    cartRepository.save(cart);
-                    session.setAttribute("sum", s);
-                } else {
-
-                    if (oldDetail.getQuantity() + quantity <= realProduct.getQuantity()) {
-                        oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
-                    } else {
-                        throw new RuntimeException("ERROR_CART");
-                    }
-
-                    oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
-
-                    cartDetailRepository.save(oldDetail);
-                }
-
-            }
-
+            int newSum = cart.getSum() + (int) quantity;
+            cart.setSum(newSum);
+            cartRepository.save(cart);
+            session.setAttribute("sum", newSum);
         }
     }
 

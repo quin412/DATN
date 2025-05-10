@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title> Thanh toán - TCC</title>
+    <title>Thanh toán</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -345,7 +345,7 @@
                     const totalPrice = totalPriceElement.dataset.cartTotalPrice;
                     // console.log(totalPrice);
                     // Cập nhật các trường thông tin
-                    document.getElementById('bankId').value = "MB BANK";
+                    document.getElementById('bankId').value = "VIETCOMBANK";
                     document.getElementById('accountNo').value = data.accountNo;
                     document.getElementById('amountBank').value = new Intl.NumberFormat('vi-VN').format(totalPrice);
                     document.getElementById('descriptionBank').value = data.description;

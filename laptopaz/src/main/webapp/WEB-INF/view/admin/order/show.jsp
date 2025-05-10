@@ -1,5 +1,5 @@
 <%@ page import="java.util.Date" %>
-<%@ page import="com.gr25.thinkpro.utils.DateUtils" %>
+<%@ page import="com.example.laptopaz.utils.DateUtils" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="TTTN - LaptopTCC" />
         <meta name="author" content="TTTN" />
-    <title>ADMIN</title>
+    <title>Đơn hàng</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>

@@ -3138,23 +3138,23 @@ fieldset:disabled .btn {
 }
 
 .btn-primary {
-    color: #000;
-    background-color: #81c408;
-    border-color: #81c408
+    color: #fff;              /* Chữ trắng cho dễ nhìn */
+    background-color: #0d6efd; /* Xanh dương đậm */
+    border-color: #0d6efd;     /* Viền xanh dương đậm */
 }
 
 .btn-primary:hover {
-    color: #000;
-    background-color: #94cd2d;
-    border-color: #8eca21
+    color: #fff;               /* Chữ trắng khi hover */
+    background-color: #0b5ed7; /* Xanh dương đậm khi hover */
+    border-color: #0a58ca;     /* Viền xanh dương đậm khi hover */
 }
 
 .btn-check:focus+.btn-primary,
 .btn-primary:focus {
-    color: #000;
-    background-color: #94cd2d;
-    border-color: #8eca21;
-    box-shadow: 0 0 0 .25rem rgba(110, 167, 7, .5)
+    color: #fff;               /* Chữ trắng khi focus */
+    background-color: #0b5ed7; /* Xanh dương đậm khi focus */
+    border-color: #0a58ca;     /* Viền xanh dương đậm khi focus */
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .5); /* Đổ bóng xanh dương nhẹ khi focus */
 }
 
 .btn-check:checked+.btn-primary,
@@ -3498,20 +3498,21 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary {
-    color: #81c408;
-    border-color: #81c408
+    color: #0d6efd;
+    border-color: #0d6efd;
 }
 
 .btn-outline-primary:hover {
-    color: #000;
-    background-color: #81c408;
-    border-color: #81c408
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
 }
 
 .btn-check:focus+.btn-outline-primary,
 .btn-outline-primary:focus {
-    box-shadow: 0 0 0 .25rem rgba(129, 196, 8, .5)
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, 0.5);
 }
+
 
 .btn-check:checked+.btn-outline-primary,
 .btn-check:active+.btn-outline-primary,
@@ -3819,7 +3820,7 @@ fieldset:disabled .btn {
 
 .btn-link {
     font-weight: 400;
-    color: #81c408;
+    color: #0d6efd;
     text-decoration: none
 }
 
@@ -5205,64 +5206,65 @@ fieldset:disabled .btn {
 .page-link {
     position: relative;
     display: block;
-    color: #81c408;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+    color: #0d6efd; /* Màu chữ xanh dương */
+    background-color: #fff; /* Nền trắng */
+    border: 1px solid #0d6efd; /* Viền xanh dương */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-@media(prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
     .page-link {
-        transition: none
+        transition: none;
     }
 }
 
 .page-link:hover {
     z-index: 2;
-    color: #679d06;
-    background-color: #e9ecef;
-    border-color: #dee2e6
+    color: #000; /* Màu chữ đen khi hover */
+    background-color: #fff; /* Nền trắng */
+    border-color: #0d6efd; /* Viền xanh dương */
 }
 
 .page-link:focus {
     z-index: 3;
-    color: #679d06;
-    background-color: #e9ecef;
+    color: #000; /* Màu chữ đen khi focus */
+    background-color: #fff;
     outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(129, 196, 8, .25)
+    box-shadow: 0 0 0 .25rem rgba(129, 196, 8, .25);
 }
 
 .page-item:not(:first-child) .page-link {
-    margin-left: -1px
+    margin-left: -1px;
 }
 
 .page-item.active .page-link {
     z-index: 3;
-    color: #fff;
-    background-color: #81c408;
-    border-color: #81c408
+    color: #000; /* Màu chữ đen khi active */
+    background-color: #fff; /* Nền trắng */
+    border-color: #0d6efd; /* Viền xanh dương */
 }
 
 .page-item.disabled .page-link {
-    color: #6c757d;
     pointer-events: none;
-    background-color: #fff;
-    border-color: #dee2e6
+    color: #000; /* Màu chữ đen khi disabled */
+    background-color: #fff; /* Nền trắng */
+    border-color: #0d6efd; /* Viền xanh dương */
 }
 
 .page-link {
-    padding: .375rem .75rem
+    padding: .375rem .75rem;
 }
 
 .page-item:first-child .page-link {
     border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px
+    border-bottom-left-radius: 10px;
 }
 
 .page-item:last-child .page-link {
     border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px
+    border-bottom-right-radius: 10px;
 }
+
 
 .pagination-lg .page-link {
     padding: .75rem 1.5rem;

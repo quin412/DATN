@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Register - TCC</title>
+    <title>Xác nhận</title>
     <link href="/client/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/client/css/style.css" rel="stylesheet">
     <link href="/client/css/usermanage.css" rel="stylesheet">

@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title> Giỏ hàng - LaptopAZ </title>
+    <title>Thông tin giỏ hàng</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -201,6 +201,21 @@
                 $(totalPriceElement[0]).attr("data-cart-total-price", totalPrice);
                 $(totalPriceElement2[0]).attr("data-cart-total-price-free", totalPrice + 30000);
             }
+        });
+    });
+    document.querySelectorAll(".btn-plus, .btn-minus").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const input = this.closest(".quantity").querySelector("input[type='number']");
+            const step = this.classList.contains("btn-plus") ? 0 : -1;
+            let value = parseInt(input.value, 10) || 0;
+            const max = parseInt(input.max, 10);
+            const min = parseInt(input.min, 10);
+
+            value += step;
+            if (value > max) value = max;
+            if (value < min) value = min;
+            input.value = value;
+            input.dispatchEvent(new Event("input")); // <-- kích hoạt lại logic cập nhật
         });
     });
 

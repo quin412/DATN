@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ - TCC</title>
+    <title>Trang chủ</title>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,8 +89,8 @@
 
         .product-primary {
             background-image: url('/images/z5579353903011_379d9c2c33c4d57a6462d51bd1e4af87.jpg');
-            margin: 16px 0;
-            padding: 60px 16px 24px;
+            margin: 5px 0;
+            padding: 16px 16px 24px;
             border-radius: 15px;
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -130,6 +130,18 @@
             z-index: 1050;
             padding: 10px;
         }
+        .product-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: underline;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Bóng đổ nhẹ */
+            letter-spacing: 2px; /* Khoảng cách giữa các chữ */
+            margin-bottom: 20px;
+        }
+
 
     </style>
 </head>
@@ -148,9 +160,10 @@
 <div class="container">
     <div class="row product-primary mb-5">
         <div class="group-title">
+        <h1 class="product-title">SẢN PHẨM BÁN CHẠY</h1>
             <p class="group-left" style="min-height: 50px">
             </p>
-            <a href="#" class="btn-view">Xem thêm khuyến mãi +</a>
+            <a href="#" class="btn-view">Xem thêm khuyến mãi</a>
         </div>
         <c:forEach var="product" items="${recommend_products}">
             <div class="col-md-12 col-lg-3">
@@ -176,12 +189,12 @@
                     <div class="add-to-cart pb-2">
                         <form action="/add-product-to-cart/${product.productId}" method="post">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                            <button class="mx-auto btn border border-danger rounded-pill px-3 text-primary">
                                 <i class="fa fa-shopping-bag me-2 text-danger"></i>
                                 Thêm vào giỏ hàng
                             </button>
                             <a href="/product/${product.productId}"
-                               class="btn border border-secondary rounded-pill px-3 text-primary mt-2">
+                               class="btn border border-danger rounded-pill px-3 text-primary mt-2">
                                 <i class="fa fa-eye me-2 text-danger"></i>
                                 Chi tiết
                             </a>
@@ -190,8 +203,8 @@
                 </div>
             </div>
         </c:forEach>
-
     </div>
+
     <div class="row search-filter ps-5 pe-5">
         <form id="searchFilterForm" class="row align-items-start" >
             <div class="col-md-3 col-sm-6 form-group">
@@ -298,12 +311,12 @@
                     <div class="add-to-cart">
                         <form action="/add-product-to-cart/${product.productId}" method="post">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                            <button class="mx-auto btn border border-danger rounded-pill px-3 text-primary">
                                 <i class="fa fa-shopping-bag me-2 text-danger"></i>
                                 Thêm vào giỏ hàng
                             </button>
                             <a href="/product/${product.productId}"
-                               class="btn border border-secondary rounded-pill px-3 text-primary mt-2">
+                               class="btn border border-danger rounded-pill px-3 text-primary mt-2">
                                 <i class="fa fa-eye me-2 text-danger"></i>
                                 Chi tiết
                             </a>
@@ -338,12 +351,9 @@
         <jsp:include page="../layout/chatbotWidget.jsp"/>
     </div>
 </div>
-<div>
+<div class="">
 <a href="https://m.me/657435530778911" target="_blank" class="messenger-floating">
     <img src="/images/messenger-icon.svg" alt="Messenger" width="50">
-</a>
-<a href="https://m.me/657435530778911" target="_blank">
-    <button class="btn btn-primary">💬 Chat với chúng tôi qua Messenger</button>
 </a>
 </div>
 <div class="abovepage">

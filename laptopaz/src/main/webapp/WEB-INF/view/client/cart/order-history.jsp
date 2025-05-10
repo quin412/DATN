@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title> Lịch sử mua hàng - TCC</title>
+    <title>Lịch sử mua hàng</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -98,21 +98,19 @@
                                     <img src="/images/products/${orderDetail.product.images[0].url}"
                                          class="img-fluid rounded" alt="Sản phẩm">
                                 </div>
-                                <div class="col-md-4 col-8">
+                                <div class="col-lg col-8">
                                     <h6 class="mb-1">
                                         <a href="/product/${orderDetail.product.productId}" class="text-dark"
                                            target="_blank">${orderDetail.product.name}</a>
                                     </h6>
-                                    <small>Số lượng: ${orderDetail.quantity}</small>
-                                </div>
-                                <div class="col-md-3">
-                                    <div>Đơn giá:
+                                    <small>Số lượng: ${orderDetail.quantity}</small> <br>
+                                    <small>Đơn giá:
                                         <fmt:formatNumber type="number" value="${orderDetail.price}"/> đ
-                                    </div>
-                                    <div>Thành tiền:
+                                    </small> <br>
+                                    <small>Thành tiền:
                                         <fmt:formatNumber type="number"
                                                           value="${orderDetail.price * orderDetail.quantity}"/> đ
-                                    </div>
+                                    </small>
                                 </div>
                                 <div class="col-md-3 text-end">
                                     <c:if test="${order.status == 'COMPLETED' && orderDetail.feedback == false}">
@@ -141,7 +139,7 @@
                                         <c:when test="${order.status == 'WAITING'}">Chờ xác nhận</c:when>
                                         <c:when test="${order.status == 'CONFIRMED'}">Đã xác nhận</c:when>
                                         <c:when test="${order.status == 'COMPLETED'}">Đã giao</c:when>
-                                        <c:when test="${order.status == 'CANCELLED'}">Đã hủy</c:when>
+                                        <c:when test="${order.status == 'CANCELLED'}">Hủy</c:when>
                                         <c:when test="${order.status == 'REJECTED'}">Từ chối</c:when>
                                     </c:choose>
                                 </span>

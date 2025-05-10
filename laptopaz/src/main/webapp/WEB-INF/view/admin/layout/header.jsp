@@ -1,12 +1,12 @@
 <%@ page import="org.springframework.security.core.Authentication" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page import="com.gr25.thinkpro.service.impl.CustomUserDetailsServiceImpl" %>
-<%@ page import="com.gr25.thinkpro.domain.entity.Customer" %>
+<%@ page import="com.example.laptopaz.service.impl.CustomUserDetailsServiceImpl" %>
+<%@ page import="com.example.laptopaz.domain.entity.Customer" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3 text-success" style="font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold;" href="/admin">Laptop TCC</a>
+    <a class="navbar-brand ps-3 text-primary" style="font-family: 'Courier New', monospace; font-size: 32px; font-weight: bold;" href="/admin">LaptopAZ</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>

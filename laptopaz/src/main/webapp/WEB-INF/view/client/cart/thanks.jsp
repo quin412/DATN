@@ -6,7 +6,7 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Đơn hàng - TCC</title>
+                <title>Hoàn tất đặt hàng</title>
 
                 <!-- Google Web Fonts -->
                 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,15 +45,31 @@
                 <jsp:include page="../layout/header.jsp" />
 
 
-                <div class="container" style="margin-top: 100px;">
-                    <div class="row ">
-                        <div class="col-12 mt-5">
-                            <div class="alert alert-success" role="alert">
-                                Cảm ơn bạn đã đặt hàng, đơn hàng đã được xác nhận thành công.
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               <div class="container" style="margin-top: 100px;">
+                   <div class="row justify-content-center">
+                       <div class="col-md-8 text-center">
+                           <!-- Tiêu đề cảm ơn -->
+                           <h2 class="text-success fw-bold mb-4" style="font-size: 2rem;">
+                               🎉 Cảm ơn bạn đã đặt hàng!
+                           </h2>
+
+                           <!-- Nội dung thông báo -->
+                           <p class="alert alert-success fs-5">
+                               Đơn hàng của bạn đã được xác nhận thành công. Chúng tôi sẽ sớm liên hệ để giao hàng!
+                           </p>
+
+                           <!-- Nút điều hướng -->
+                           <div class="mt-4 d-flex justify-content-center gap-3">
+                               <a href="/home" class="btn btn-outline-primary px-4 py-2">
+                                   <i class="fas fa-home me-2"></i>Về trang chủ
+                               </a>
+                               <a href="/cart/order-history" class="btn btn-primary px-4 py-2">
+                                   <i class="fas fa-receipt me-2"></i>Xem lịch sử đặt hàng
+                               </a>
+                           </div>
+                       </div>
+                   </div>
+               </div>
 
                 <jsp:include page="../layout/footer.jsp" />
 

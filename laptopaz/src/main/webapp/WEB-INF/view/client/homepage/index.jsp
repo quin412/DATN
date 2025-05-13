@@ -44,6 +44,12 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* hiệu ứng nổi */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px); /* nổi lên khi hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
         .product-card .product-details {
@@ -90,8 +96,11 @@
         .product-primary {
             background-image: url('/images/z5579353903011_379d9c2c33c4d57a6462d51bd1e4af87.jpg');
             margin: 5px 0;
-            padding: 16px 16px 24px;
-            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.95);
+                border-radius: 15px;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+                padding: 20px;
+
             background-size: 100% 100%;
             background-repeat: no-repeat;
         }
@@ -141,12 +150,63 @@
             letter-spacing: 2px; /* Khoảng cách giữa các chữ */
             margin-bottom: 20px;
         }
+        @media (min-width: 992px) {
+        .custom-col-5 {
+            width: 20%;
+            float: left;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        }
+        .fruite-img img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center; /* Căn giữa các số trang */
+            flex-wrap: nowrap; /* Không cho phép các phần tử phân trang xuống dòng */
+            list-style: none; /* Loại bỏ dấu chấm của danh sách */
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination .page-item {
+            margin: 0 5px; /* Thêm khoảng cách giữa các trang */
+        }
+
+        .page-link {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        .page-link:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .page-item.active .page-link {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .page-item.disabled .page-link {
+            background-color: #e9ecef;
+            color: #6c757d;
+        }
 
 
     </style>
 </head>
-<body>
 
+<body>
 <!-- Spinner Start -->
 <div id="spinner"
      class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
@@ -160,14 +220,13 @@
 <div class="container">
     <div class="row product-primary mb-5">
         <div class="group-title">
-        <h1 class="product-title">SẢN PHẨM BÁN CHẠY</h1>
-            <p class="group-left" style="min-height: 50px">
-            </p>
+            <h1 class="product-title">SẢN PHẨM BÁN CHẠY</h1>
+            <p class="group-left" style="min-height: 50px"></p>
             <a href="#" class="btn-view">Xem thêm khuyến mãi</a>
         </div>
         <c:forEach var="product" items="${recommend_products}">
-            <div class="col-md-12 col-lg-3">
-                <div class="rounded bg-white position-relative fruite-item border border-primary rounded-bottom product-card">
+            <div class="custom-col-5">
+                <div class="rounded bg-white position-relative fruite-item shadow-lg rounded-bottom product-card">
                     <div class="fruite-img">
                         <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
                     </div>
@@ -189,13 +248,13 @@
                     <div class="add-to-cart pb-2">
                         <form action="/add-product-to-cart/${product.productId}" method="post">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="mx-auto btn border border-danger rounded-pill px-3 text-primary">
-                                <i class="fa fa-shopping-bag me-2 text-danger"></i>
+                            <button class="mx-auto btn border border-danger rounded-pill px-1 text-primary">
+                                <i class="fa fa-shopping-bag me-1 text-danger"></i>
                                 Thêm vào giỏ hàng
                             </button>
                             <a href="/product/${product.productId}"
-                               class="btn border border-danger rounded-pill px-3 text-primary mt-2">
-                                <i class="fa fa-eye me-2 text-danger"></i>
+                               class="btn border border-danger rounded-pill px-1 text-primary mt-2">
+                                <i class="fa fa-eye me-1 text-danger"></i>
                                 Chi tiết
                             </a>
                         </form>
@@ -205,150 +264,147 @@
         </c:forEach>
     </div>
 
-    <div class="row search-filter ps-5 pe-5">
-        <form id="searchFilterForm" class="row align-items-start" >
-            <div class="col-md-3 col-sm-6 form-group">
-                <label for="category" class="form-label">Danh mục</label>
-                <select class="form-select" id="category" name="category">
-                    <option value=" ">Chọn danh mục</option>
-                    <c:forEach var="category" items="${categories}">
-                        <option value="${category.name}"
-                                <c:if test="${category.name == param.category}">selected</c:if>>${category.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
+     <div class="row">
+         <!-- Sidebar Filter -->
+         <div class="col-md-2">
+             <form id="searchFilterForm" class="bg-light p-3 rounded shadow-sm">
+                 <h6 class="mb-3">Bộ lọc sản phẩm</h6>
+                 <!-- Danh mục -->
+                 <div class="form-group mb-3">
+                     <label for="category">Danh mục</label>
+                     <select class="form-select" id="category" name="category">
+                         <option value=" ">Chọn danh mục</option>
+                         <c:forEach var="category" items="${categories}">
+                             <option value="${category.name}"
+                                     <c:if test="${category.name == param.category}">selected</c:if>>${category.name}</option>
+                         </c:forEach>
+                     </select>
+                 </div>
 
-            <!-- Sorting Radios -->
-            <div class="col-md-3 col-sm-6 form-group">
-                <label class="form-label d-block">Sắp xếp theo giá</label>
-                <div class="d-flex flex-column">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortBy" id="sortDefault" value=" "
-                               <c:if test="${param.sortBy == ' '}">checked</c:if>>
-                        <label class="form-check-label" for="sortDefault">Mặc định</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortBy" id="sortAsc" value="asc"
-                               <c:if test="${param.sortBy == 'asc'}">checked</c:if>>
-                        <label class="form-check-label" for="sortAsc">Tăng dần</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortBy" id="sortDesc" value="desc"
-                               <c:if test="${param.sortBy == 'desc'}">checked</c:if>>
-                        <label class="form-check-label" for="sortDesc">Giảm dần</label>
-                    </div>
-                </div>
-            </div>
+                 <!-- Sắp xếp theo giá -->
+                 <div class="form-group mb-3">
+                     <label class="form-label">Sắp xếp theo giá</label>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="sortBy" id="sortDefault" value=" "
+                                <c:if test="${param.sortBy == ' '}">checked</c:if>>
+                         <label class="form-check-label" for="sortDefault">Mặc định</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="sortBy" id="sortAsc" value="asc"
+                                <c:if test="${param.sortBy == 'asc'}">checked</c:if>>
+                         <label class="form-check-label" for="sortAsc">Tăng dần</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="sortBy" id="sortDesc" value="desc"
+                                <c:if test="${param.sortBy == 'desc'}">checked</c:if>>
+                         <label class="form-check-label" for="sortDesc">Giảm dần</label>
+                     </div>
+                 </div>
 
-            <!-- Price Range Radios -->
-            <div class="col-md-4 col-sm-12 form-group">
-                <label class="form-label d-block">Khoảng giá</label>
-                <div class="d-flex flex-wrap">
-                    <div class="form-check me-2">
-                        <input class="form-check-input" type="radio" name="price" id="priceRangeDefault" value=" "
-                               <c:if test="${param.price == ' '}">checked</c:if>>
-                        <label class="form-check-label" for="priceRangeDefault">Mặc định</label>
-                    </div>
-                    <div class="form-check me-2">
-                        <input class="form-check-input" type="radio" name="price" id="priceRange1" value="duoi-10-trieu"
-                               <c:if test="${param.price == 'duoi-10-trieu'}">checked</c:if>>
-                        <label class="form-check-label" for="priceRange1">Dưới 10 triệu</label>
-                    </div>
-                    <div class="form-check me-2">
-                        <input class="form-check-input" type="radio" name="price" id="priceRange2" value="10-15-trieu"
-                               <c:if test="${param.price == '10-15-trieu'}">checked</c:if>>
-                        <label class="form-check-label" for="priceRange2">Từ 10-15 triệu</label>
-                    </div>
-                </div>
-                <div class="d-flex flex-wrap">
-                    <div class="form-check me-2">
-                        <input class="form-check-input" type="radio" name="price" id="priceRange3" value="15-20-trieu"
-                               <c:if test="${param.price == '15-20-trieu'}">checked</c:if>>
-                        <label class="form-check-label" for="priceRange3">Từ 15-20 triệu</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="price" id="priceRange4" value="tren-20-trieu"
-                               <c:if test="${param.price == 'tren-20-trieu'}">checked</c:if>>
-                        <label class="form-check-label" for="priceRange4">Trên 20 triệu</label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Search Button -->
-            <div class="col-md-2 col-sm-12 form-group d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
-            </div>
-        </form>
-
-
-    </div>
-
-    <div class="row g-4 p-5 d-flex justify-content-start">
-        <c:if test="${totalPages == 0}">
-            <div>Không tìm thấy sản phẩm</div>
-        </c:if>
-        <c:forEach var="product" items="${products}">
-            <div class="col-md-12 col-lg-3">
-                <div class="rounded position-relative fruite-item border border-primary rounded-bottom product-card">
-                    <div class="fruite-img">
-                        <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-danger px-3 py-1 position-absolute"
-                         style="top: -1px; right: -1px; border-radius: 50%;">
-                        -<fmt:formatNumber type="number" value="${product.discount}"/>%
-                    </div>
-                    <div class="p-4 product-details text-center">
-                        <h4 style="font-size: 15px;">
-                            <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
-                        </h4>
-                        <div class="product-price">
-                            <span class="original-price"><fmt:formatNumber type="number"
-                                                                           value="${product.price}"/> đ</span>
-                            <span class="discounted-price"><fmt:formatNumber type="number"
-                                                                             value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+                 <!-- Khoảng giá -->
+                 <div class="form-group mb-3">
+                     <label class="form-label">Khoảng giá</label>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="price" id="priceDefault" value=" "
+                                <c:if test="${param.price == ' '}">checked</c:if>>
+                         <label class="form-check-label" for="priceDefault">Mặc định</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="price" id="price1" value="duoi-10-trieu"
+                                <c:if test="${param.price == 'duoi-10-trieu'}">checked</c:if>>
+                         <label class="form-check-label" for="price1">Dưới 10 triệu</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="price" id="price2" value="10-15-trieu"
+                                <c:if test="${param.price == '10-15-trieu'}">checked</c:if>>
+                         <label class="form-check-label" for="price2">Từ 10–15 triệu</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="price" id="price3" value="15-20-trieu"
+                                <c:if test="${param.price == '15-20-trieu'}">checked</c:if>>
+                         <label class="form-check-label" for="price3">Từ 15–20 triệu</label>
+                     </div>
+                     <div class="form-check">
+                         <input class="form-check-input" type="radio" name="price" id="price4" value="tren-20-trieu"
+                                <c:if test="${param.price == 'tren-20-trieu'}">checked</c:if>>
+                         <label class="form-check-label" for="price4">Trên 20 triệu</label>
+                     </div>
+                 </div>
+                 <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+             </form>
+         </div>
+        <!-- Product List -->
+        <div class="col-md-10">
+            <div class="row g-4">
+                <c:if test="${totalPages == 0}">
+                    <div>Không tìm thấy sản phẩm</div>
+                </c:if>
+                <c:forEach var="product" items="${products}">
+                    <div class="col-md-12 col-lg-3">
+                        <div class="rounded bg-white position-relative fruite-item shadow-lg rounded-bottom product-card">
+                            <div class="fruite-img">
+                                <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
+                            </div>
+                            <div class="text-white bg-danger px-3 py-1 position-absolute"
+                                 style="top: -1px; right: -1px; border-radius: 50%;">
+                                -<fmt:formatNumber type="number" value="${product.discount}"/>%
+                            </div>
+                            <div class="p-4 product-details text-center">
+                                <h4 style="font-size: 15px;">
+                                    <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
+                                </h4>
+                                <div class="product-price">
+                                    <span class="original-price"><fmt:formatNumber type="number"
+                                                                                   value="${product.price}"/> đ</span>
+                                    <span class="discounted-price"><fmt:formatNumber type="number"
+                                                                                     value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+                                </div>
+                            </div>
+                            <div class="add-to-cart">
+                                <form action="/add-product-to-cart/${product.productId}" method="post">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button class="mx-auto btn border border-danger rounded-pill px-1 text-primary">
+                                        <i class="fa fa-shopping-bag me-1 text-danger"></i>
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                    <a href="/product/${product.productId}"
+                                       class="btn border border-danger rounded-pill px-1 text-primary mt-2">
+                                        <i class="fa fa-eye me-1 text-danger"></i>
+                                        Chi tiết
+                                    </a>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="add-to-cart">
-                        <form action="/add-product-to-cart/${product.productId}" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="mx-auto btn border border-danger rounded-pill px-3 text-primary">
-                                <i class="fa fa-shopping-bag me-2 text-danger"></i>
-                                Thêm vào giỏ hàng
-                            </button>
-                            <a href="/product/${product.productId}"
-                               class="btn border border-danger rounded-pill px-3 text-primary mt-2">
-                                <i class="fa fa-eye me-2 text-danger"></i>
-                                Chi tiết
-                            </a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-        <c:if test="${totalPages > 0}">
-            <div class="pagination d-flex justify-content-center mt-5">
-                <li class="page-item">
-                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                       href="/home?pageNum=${currentPage - 1}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <c:forEach var="i" begin="1" end="${totalPages}">
-                    <li class="page-item ${i eq currentPage ? 'active' : ''}">
-                        <a class="page-link" href="/home?pageNum=${i}">${i}</a>
-                    </li>
                 </c:forEach>
-                <li class="page-item">
-                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                       href="/home?pageNum=${currentPage + 1}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
             </div>
-        </c:if>
-    </div>
-    <div>
-        <jsp:include page="../layout/chatbotWidget.jsp"/>
+            <c:if test="${totalPages > 0}">
+                <div class="pagination d-flex justify-content-center mt-5">
+                    <ul class="pagination flex-row">
+                        <li class="page-item">
+                            <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                               href="/home?pageNum=${currentPage - 1}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <li class="page-item ${i eq currentPage ? 'active' : ''}">
+                                <a class="page-link" href="/home?pageNum=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <li class="page-item">
+                            <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                               href="/home?pageNum=${currentPage + 1}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </c:if>
+        </div>
+        <div>
+            <jsp:include page="../layout/chatbotWidget.jsp"/>
+        </div>
     </div>
 </div>
 <div class="">
@@ -359,8 +415,9 @@
 <div class="abovepage">
     <jsp:include page="../layout/chatbotWidget.jsp"/>
 </div>
+<div class="container-fluid">
 <jsp:include page="../layout/footer.jsp"/>
-
+</div>
 <!-- Back to Top -->
 <a href="#" class="btn btn-danger py-3 fs-4 rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 

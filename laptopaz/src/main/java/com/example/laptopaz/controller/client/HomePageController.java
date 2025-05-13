@@ -95,10 +95,9 @@ public class HomePageController {
         if (productCriteriaDto.getCategory() != null && !productCriteriaDto.getCategory().isEmpty()) {
             request.getSession().setAttribute("category", productCriteriaDto.getCategory());
         } else {
-            if (request.getSession().getAttribute("category") != null) {
-                productCriteriaDto.setCategory((String) request.getSession().getAttribute("category"));
-            }
+            request.getSession().removeAttribute("category"); // Xóa nếu không chọn
         }
+
 
         if (productCriteriaDto.getPrice() != null && !productCriteriaDto.getPrice().isEmpty()) {
             request.getSession().setAttribute("finalPrice", productCriteriaDto.getPrice());
@@ -131,7 +130,7 @@ public class HomePageController {
         Page<Product> page = productService.findProduct(productCriteriaDto, pageRequest);
         model.addAttribute("products", page.getContent());
 
-        Page<Product> products = productRepository.findTopSellingProducts(PageRequest.of(0, 4));
+        Page<Product> products = productRepository.findTopSellingProducts(PageRequest.of(0, 5));
         model.addAttribute("recommend_products", products.getContent());
 
         model.addAttribute("currentPage", page.getNumber() + 1);

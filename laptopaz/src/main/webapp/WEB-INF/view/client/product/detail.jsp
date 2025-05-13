@@ -68,7 +68,7 @@
 <jsp:include page="../layout/header.jsp"/>
 
 <!-- Single Product Start -->
-<div class="container-fluid py-5 mt-5">
+<div class="container-fluid py-5 ">
     <div class="container py-5">
         <div class="row g-4 mb-5">
             <div>
@@ -80,7 +80,9 @@
                     </ol>
                 </nav>
             </div>
-            <div class="col-lg-8 col-xl-9">
+            <div ><h4 class="fw-bold mb-3"> ${product.name}</h4></div>
+            <div class="col-lg-8 col-xl-8">
+
                 <div class="row g-4">
                     <div class="col-lg-6 text-center">
                         <div class="border rounded">
@@ -107,7 +109,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <h4 class="fw-bold mb-3"> ${product.name}</h4>
+
                         <p class="mb-3">${product.category.name}</p>
                         <p class="mb-3">Số lượng còn lại : ${product.quantity}</p>
                         <div class="product-price">
@@ -220,6 +222,7 @@
                                     </div>
                                     <hr>
                                 </c:forEach>
+
                                 <c:if test="${totalPages > 0}">
                                     <div class="pagination d-flex justify-content-center mt-5">
                                         <li class="page-item">
@@ -252,27 +255,78 @@
 
                 </div>
             </div>
-            <div class="col-lg-4 col-xl-3">
-                <div class="row g-4 fruite">
-                    <div class="col-lg-12">
+            <div class="col-lg-4 col-xl-4">
+                <div class="row fruite">
 
-                        <div class="mb-4">
-                            <h4>Danh mục</h4>
-                            <ul class="list-unstyled fruite-categorie">
-                                <c:forEach var="category" items="${categories}">
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="/home?category=${category.name}" class="text-primary">${category.name}</a>
-                                            <span>(${category.products.size()})</span>
-                                        </div>
-                                    </li>
-                                </c:forEach>
+                        <div class="mb-4 p-2 border rounded shadow-sm" style="background-color: #f8f9fa;">
+                            <h6 style="color: red; text-align:center;">YÊN TÂM MUA SẮM TẠI LAPTOP AZ</h6>
+                            <ul class="list-unstyled fruite-categorie" style="line-height: 1.8;">
+                                <li style="margin-bottom: 6px;">✔ Chất lượng sản phẩm là hàng đầu</li>
+                                <li style="margin-bottom: 6px;">✔ Dùng test máy 15 ngày đầu lỗi 1 đổi 1</li>
+                                <li style="margin-bottom: 6px;">✔ Hỗ trợ và hậu mãi sau bán hàng tốt nhất</li>
+                                <li style="margin-bottom: 6px;">✔ Trả góp ưu đãi lãi suất qua thẻ visa</li>
+                                <li style="margin-bottom: 6px;">✔ Giao hàng miễn phí toàn quốc nhanh nhất</li>
                             </ul>
                         </div>
-                    </div>
                 </div>
+                <div class="row fruite promotion-box border border-success rounded p-2 mb-4">
+                    <div class="d-flex align-items-center justify-content-center text-center mb-2">
+                        <i class="fa fa-gift text-success me-2"></i>
+                        <span class="badge bg-success text-white px-3 py-1 rounded-pill" style="font-size: 16px;">QUÀ TẶNG/KHUYẾN MẠI</span>
+                    </div>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fa fa-check-square text-success me-2"></i> Tặng Windows 11 bản quyền theo máy</li>
+                        <li><i class="fa fa-check-square text-success me-2"></i> Miễn phí cân màu màn hình công nghệ cao</li>
+                        <li><i class="fa fa-check-square text-success me-2"></i> Balo thời trang</li>
+                        <li><i class="fa fa-check-square text-success me-2"></i> Chuột không dây + Bàn di cao cấp</li>
+                        <li><i class="fa fa-check-square text-success me-2"></i> Tặng gói cài đặt, bảo dưỡng, vệ sinh máy trọn đời</li>
+                        <li><i class="fa fa-check-square text-success me-2"></i> Tặng Voucher giảm giá cho lần mua tiếp theo</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Sản phẩm đề xuất -->
+        <div class="container mt-5">
+            <h3 class="mb-4">Sản phẩm tương tự</h3>
+            <div class="row g-4">
+                <c:if test="${empty relatedProducts}">
+                    <div class="col-12">
+                        <p>Không có sản phẩm tương tự.</p>
+                    </div>
+                </c:if>
+                <c:forEach var="product" items="${relatedProducts}" varStatus="loop">
+                    <c:if test="${loop.index < 4}">
+                        <div class="col-md-12 col-lg-3">
+                            <div class="rounded bg-white position-relative fruite-item shadow-lg rounded-bottom product-card">
+                                <div class="fruite-img">
+                                    <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
+                                </div>
+                                <div class="text-white bg-danger px-3 py-1 position-absolute"
+                                     style="top: -1px; right: -1px; border-radius: 50%;">
+                                    -<fmt:formatNumber type="number" value="${product.discount}"/>%
+                                </div>
+                                <div class="p-4 product-details text-center">
+                                    <h4 style="font-size: 15px;">
+                                        <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
+                                    </h4>
+                                    <div class="product-price">
+                                        <span class="original-price"><fmt:formatNumber type="number"
+                                                                                       value="${product.price}"/> đ</span>
+                                        <span class="discounted-price"><fmt:formatNumber type="number"
+                                                                                         value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </c:if>
+                </c:forEach>
             </div>
         </div>
+
 
     </div>
 </div>

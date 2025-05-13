@@ -134,4 +134,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             nativeQuery = true)
     Page<Product> findTopSellingProducts(Pageable pageable);
 
+    @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId " +
+            "AND p.price BETWEEN :minPrice AND :maxPrice " +
+            "AND p.productId <> :excludeProductId")
+    List<Product> findSimilar(@Param("categoryId") Long categoryId,
+                              @Param("minPrice") double minPrice,
+                              @Param("maxPrice") double maxPrice,
+                              @Param("excludeProductId") Long excludeProductId);
+
 }

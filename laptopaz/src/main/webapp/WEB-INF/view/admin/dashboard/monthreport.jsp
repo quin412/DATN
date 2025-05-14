@@ -23,7 +23,19 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">THỐNG KÊ THÁNG ${month} - ${year}</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+                   <!-- Bên trái -->
+                   <h1 style="margin: 0; font-size: 28px;">THỐNG KÊ THÁNG ${month}-${year}</h1>
+                   <!-- Bên phải -->
+                   <div style="display: flex; align-items: center; gap: 10px;">
+                       <span style="font-size: 18px; font-weight: 500;">TẢI BÁO CÁO</span>
+                       <button
+                           onclick="downloadPdfMonth('${month}', '${year}')"
+                           style="padding: 8px 16px; background-color: #00BAEC; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; transition: 0.3s;">
+                           📄
+                       </button>
+                   </div>
+               </div>
                 <script src="https://jsuites.net/v5/jsuites.js"></script>
                 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
@@ -60,10 +72,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-success icon-large">payments</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-success">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
@@ -75,10 +84,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-primary icon-large">group</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-primary">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
@@ -90,10 +96,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-warning icon-large">receipt_long</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-warning">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
@@ -105,10 +108,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-danger icon-large">inventory_2</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-danger">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div>
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Thống kê doanh thu
+                                    <h5><i class="fas fa-chart-area me-1"></i>
+                                    Thống kê doanh thu</h5>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -139,8 +139,8 @@
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Top sản phẩm
+                            <h4><i class="fas fa-table me-1"></i>
+                            SẢN PHẨM BÁN CHẠY</h4>
                         </div>
                         <div class="card-body">
                             <table id="datatablemonth">
@@ -158,10 +158,14 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h1>Xuất PDF</h1>
-                    <button onclick="downloadPdfMonth(${month},${year})">Tải xuống</button>
-                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                   <h2 style="font-size: 24px; margin-bottom: 15px;">TẢI BÁO CÁO PDF</h2>
+                   <button
+                       onclick="downloadPdfDay('${date}')"
+                       style="padding: 10px 20px; background-color: #00BAEC; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.3s;">
+                       📄 Tải xuống
+                   </button>
+               </div>
             </div>
         </main>
         <jsp:include page="../layout/footer.jsp" />
@@ -287,7 +291,7 @@
             // Create a temporary link element
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'products.pdf'; // Set the filename
+            a.download = 'Baocao-${month}-${year}.pdf'; // Set the filename
             document.body.appendChild(a);
             a.click(); // Trigger the download
             a.remove(); // Remove the link from the DOM

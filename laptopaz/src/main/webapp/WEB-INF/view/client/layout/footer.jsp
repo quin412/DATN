@@ -1,9 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Footer Start -->
-<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+<div class="container-fluid bg-dark text-white-50 footer pt-2 mt-5 no-padding">
     <div class="container pt-5">
-        <div class="row g-5">
+        <div class="row">
             <!-- CÔNG TY -->
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-3">CÔNG TY TNHH LAPTOPAZ VIỆT NAM</h5>
@@ -87,3 +87,14 @@
     </div>
 </div>
 <!-- Footer End -->
+<style>
+    .no-padding {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    }
+</style>
+

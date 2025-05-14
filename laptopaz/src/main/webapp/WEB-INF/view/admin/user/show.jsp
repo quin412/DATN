@@ -38,35 +38,36 @@
                                 <div style="width: 20%"></div>
                             </div>
                             <hr />
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-striped" style="width: 80%; margin: 0 auto;">
                                 <thead class="table-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Email</th>
-                                    <th>Tên</th>
-                                    <th>Vai trò</th>
-                                    <th>Hành động</th>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Tên</th>
+                                        <th class="text-center">Vai trò</th>
+                                        <th class="text-center">Hành động</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="user" items="${users}">
-                                    <tr>
-                                        <th>${user.customerId}</th>
-                                        <td>${user.email}</td>
-                                        <td>${user.name}</td>
-                                        <td>${user.role.roleName}</td>
-                                        <td class="d-flex">
-                                            <a href="/admin/user/${user.customerId}" class="btn btn-success ms-1 me-1">
-                                                <i class="fas fa-eye"></i> Xem
-                                            </a>
-                                            <a href="/admin/user/delete/${user.customerId}" class="btn btn-danger">
-                                                <i class="fas fa-trash"></i> Xóa
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                    <c:forEach var="user" items="${users}">
+                                        <tr>
+                                            <td>${user.customerId}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.name}</td>
+                                            <td>${user.role.roleName}</td>
+                                            <td class="text-center d-flex justify-content-center">
+                                                <a href="/admin/user/${user.customerId}" class="btn btn-success btn-sm ms-1 me-1">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="/admin/user/delete/${user.customerId}" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
+
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item">

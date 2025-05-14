@@ -182,24 +182,47 @@
             padding: 8px 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #f1f1f1;
-            color: #333;
+            background-color: white;
+            color: #007bff;
             transition: background-color 0.3s ease;
         }
 
         .page-link:hover {
-            background-color: #007bff;
-            color: white;
+            background-color: #f1f1f1;
+            color: #000;
         }
 
         .page-item.active .page-link {
-            background-color: #007bff;
-            color: white;
+            background-color: #f1f1f1;
+            color: #000;
         }
 
         .page-item.disabled .page-link {
-            background-color: #e9ecef;
-            color: #6c757d;
+            background-color: #fff;
+            color: #007bff;
+        }
+        .flash-sale-card {
+            border: 3px solid #ff0000;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+        .flash-sale-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+        }
+        .product-price {
+            margin-top: 8px;
+        }
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 5px;
+        }
+        .product-price .discounted-price {
+            font-weight: bold;
+            color: #e60000;
         }
 
 
@@ -218,51 +241,56 @@
 <jsp:include page="../layout/banner.jsp"/>
 
 <div class="container">
-    <div class="row product-primary mb-5">
-        <div class="group-title">
-            <h1 class="product-title">SẢN PHẨM BÁN CHẠY</h1>
-            <p class="group-left" style="min-height: 50px"></p>
-            <a href="#" class="btn-view">Xem thêm khuyến mãi</a>
+    <!-- KHUNG SẢN PHẨM BÁN CHẠY -->
+    <div class="flash-sale-section border border-danger rounded p-3 mb-5 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center bg-danger text-white px-3 py-2 rounded-top">
+            <h5 class="mb-0 fw-bold">
+                <i class="fas fa-bolt me-2 text-white"></i> <span class="text-white">SẢN PHẨM BÁN CHẠY</span>
+            </h5>
+            <a href="#" class="text-white text-decoration-underline">Xem thêm khuyến mãi</a>
         </div>
-        <c:forEach var="product" items="${recommend_products}">
-            <div class="custom-col-5">
-                <div class="rounded bg-white position-relative fruite-item shadow-lg rounded-bottom product-card">
-                    <div class="fruite-img">
-                        <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-danger px-3 py-1 position-absolute"
-                         style="top: -1px; right: -1px; border-radius: 50%;">
-                        -<fmt:formatNumber type="number" value="${product.discount}"/>%
-                    </div>
-                    <div class="p-2 product-details text-center">
-                        <h4 style="font-size: 15px;">
-                            <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
-                        </h4>
-                        <div class="product-price">
-                            <span class="original-price"><fmt:formatNumber type="number"
-                                                                           value="${product.price}"/> đ</span>
-                            <span class="discounted-price"><fmt:formatNumber type="number"
-                                                                             value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+
+        <div class="row g-3 mt-2">
+            <c:forEach var="product" items="${recommend_products}">
+                <div class="custom-col-5">
+                    <div class="bg-white rounded position-relative fruite-item product-card h-100 p-2 border">
+                        <div class="fruite-img">
+                            <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
+                        </div>
+                        <div class="text-white bg-danger px-2 py-1 position-absolute"
+                             style="top: -1px; right: -1px; border-radius: 50%;">
+                            -<fmt:formatNumber type="number" value="${product.discount}"/>%
+                        </div>
+                        <div class="product-details text-center mt-2">
+                            <h6 style="font-size: 15px;">
+                                <a href="/product/${product.productId}" class="text-decoration-none text-dark">${product.name}</a>
+                            </h6>
+                            <div class="product-price">
+                                <span class="original-price text-muted text-decoration-line-through me-1">
+                                    <fmt:formatNumber type="number" value="${product.price}"/> đ
+                                </span>
+                                <span class="discounted-price text-danger fw-bold">
+                                    <fmt:formatNumber type="number" value="${product.price - (product.discount * product.price / 100)}"/> đ
+                                </span>
+                            </div>
+                        </div>
+                        <div class="add-to-cart text-center mt-2">
+                            <form action="/add-product-to-cart/${product.productId}" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button class="btn btn-outline-danger btn-sm rounded-pill">
+                                    <i class="fa fa-shopping-bag me-1"></i> Thêm vào giỏ hàng
+                                </button>
+                                <a href="/product/${product.productId}" class="btn btn-outline-secondary btn-sm rounded-pill mt-1">
+                                    <i class="fa fa-eye me-1"></i> Chi tiết
+                                </a>
+                            </form>
                         </div>
                     </div>
-                    <div class="add-to-cart pb-2">
-                        <form action="/add-product-to-cart/${product.productId}" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <button class="mx-auto btn border border-danger rounded-pill px-1 text-primary">
-                                <i class="fa fa-shopping-bag me-1 text-danger"></i>
-                                Thêm vào giỏ hàng
-                            </button>
-                            <a href="/product/${product.productId}"
-                               class="btn border border-danger rounded-pill px-1 text-primary mt-2">
-                                <i class="fa fa-eye me-1 text-danger"></i>
-                                Chi tiết
-                            </a>
-                        </form>
-                    </div>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
     </div>
+
 
      <div class="row">
          <!-- Sidebar Filter -->
@@ -273,7 +301,7 @@
                  <div class="form-group mb-3">
                      <label for="category">Danh mục</label>
                      <select class="form-select" id="category" name="category">
-                         <option value=" ">Chọn danh mục</option>
+                         <option value=" ">Danh mục</option>
                          <c:forEach var="category" items="${categories}">
                              <option value="${category.name}"
                                      <c:if test="${category.name == param.category}">selected</c:if>>${category.name}</option>
@@ -341,36 +369,35 @@
                 </c:if>
                 <c:forEach var="product" items="${products}">
                     <div class="col-md-12 col-lg-3">
-                        <div class="rounded bg-white position-relative fruite-item shadow-lg rounded-bottom product-card">
+                        <div class="bg-white rounded position-relative fruite-item product-card h-100 p-2 border">
                             <div class="fruite-img">
                                 <img src="/images/products/${product.images[0].url}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
-                            <div class="text-white bg-danger px-3 py-1 position-absolute"
+                            <div class="text-white bg-danger px-2 py-1 position-absolute"
                                  style="top: -1px; right: -1px; border-radius: 50%;">
                                 -<fmt:formatNumber type="number" value="${product.discount}"/>%
                             </div>
-                            <div class="p-4 product-details text-center">
-                                <h4 style="font-size: 15px;">
-                                    <a href="/product/${product.productId}" class="text-dark">${product.name}</a>
-                                </h4>
+                            <div class="product-details text-center mt-2">
+                                <h6 style="font-size: 15px;">
+                                    <a href="/product/${product.productId}" class="text-decoration-none text-dark">${product.name}</a>
+                                </h6>
                                 <div class="product-price">
-                                    <span class="original-price"><fmt:formatNumber type="number"
-                                                                                   value="${product.price}"/> đ</span>
-                                    <span class="discounted-price"><fmt:formatNumber type="number"
-                                                                                     value="${product.price - (product.discount * product.price / 100)}"/> đ</span>
+                                    <span class="original-price text-muted text-decoration-line-through me-1">
+                                        <fmt:formatNumber type="number" value="${product.price}"/> đ
+                                    </span>
+                                    <span class="discounted-price text-danger fw-bold">
+                                        <fmt:formatNumber type="number" value="${product.price - (product.discount * product.price / 100)}"/> đ
+                                    </span>
                                 </div>
                             </div>
-                            <div class="add-to-cart">
+                            <div class="add-to-cart text-center mt-2">
                                 <form action="/add-product-to-cart/${product.productId}" method="post">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <button class="mx-auto btn border border-danger rounded-pill px-1 text-primary">
-                                        <i class="fa fa-shopping-bag me-1 text-danger"></i>
-                                        Thêm vào giỏ hàng
+                                    <button class="btn btn-outline-danger btn-sm rounded-pill">
+                                        <i class="fa fa-shopping-bag me-1"></i> Thêm vào giỏ hàng
                                     </button>
-                                    <a href="/product/${product.productId}"
-                                       class="btn border border-danger rounded-pill px-1 text-primary mt-2">
-                                        <i class="fa fa-eye me-1 text-danger"></i>
-                                        Chi tiết
+                                    <a href="/product/${product.productId}" class="btn btn-outline-secondary btn-sm rounded-pill mt-1">
+                                        <i class="fa fa-eye me-1"></i> Chi tiết
                                     </a>
                                 </form>
                             </div>

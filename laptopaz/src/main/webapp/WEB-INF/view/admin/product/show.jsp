@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +31,7 @@
                                 <a href="/admin/product/create" class="btn btn-primary">Thêm sản phẩm</a>
                             </div>
                             <hr />
-                            <table class=" table table-bordered table-hover">
+                            <table class=" table table-bordered table-hover table-striped">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -48,16 +49,23 @@
                                         <th>${product.productId}</th>
 
                                         <td>${product.name}</td>
-                                        <td>${product.price}</td>
+                                        <td><span><fmt:formatNumber type="number" value="${product.price}"/></span></td>
                                         <td>${product.quantity}</td>
-                                        <td style="display: flex">
-                                            <a href="/admin/product/${product.productId}"
-                                               class="btn btn-success me-2">Xem</a>
-                                            <a href="/admin/product/update/${product.productId}"
-                                               class="btn btn-warning me-2">Cập nhật</a>
-                                            <a href="/admin/product/delete/${product.productId}"
-                                               class="btn btn-danger">Xóa</a>
-                                        </td>
+                                       <td style="display: flex; justify-content: flex-start; gap: 10px;">
+                                           <a href="/admin/product/${product.productId}"
+                                              class="btn btn-success shadow-sm p-2 d-flex align-items-center justify-content-center">
+                                               <i class="fas fa-eye fa-lg"></i>
+                                           </a>
+                                           <a href="/admin/product/update/${product.productId}"
+                                              class="btn btn-warning shadow-sm p-2 d-flex align-items-center justify-content-center">
+                                               <i class="fas fa-edit fa-lg"></i>
+                                           </a>
+                                           <a href="/admin/product/delete/${product.productId}"
+                                              class="btn btn-danger shadow-sm p-2 d-flex align-items-center justify-content-center">
+                                               <i class="fas fa-trash-alt fa-lg"></i>
+                                           </a>
+                                       </td>
+
                                     </tr>
 
                                 </c:forEach>

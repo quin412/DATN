@@ -45,4 +45,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("SELECT COUNT(c) FROM Customer c WHERE DATE(c.createdDate) = :date")
     int countCustomersByDate(LocalDate date);
+
+    @Query(value = "SELECT COUNT(*) FROM users c WHERE c.role_id = :roleId AND c.is_deleted = false", nativeQuery = true)
+    int countCustomersByRoleId(@Param("roleId") Long roleId);
+
 }

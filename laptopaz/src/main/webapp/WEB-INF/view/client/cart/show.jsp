@@ -40,7 +40,7 @@
         <div class="mb-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/" class="text-primary">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/" class="text-primary">Trang chủ</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Chi Tiết Giỏ Hàng</li>
                 </ol>
             </nav>

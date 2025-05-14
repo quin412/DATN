@@ -13,6 +13,7 @@
     <title>Tạo sản phẩm</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -42,15 +43,16 @@
                                     </c:if>
                                     <label>Tên sản phẩm</label>
                                 </div>
+                                <--Mô tả-->
                                 <div class="form-floating mb-3">
-                                    <form:input class="form-control" path="description" placeholder="Mô tả" value="${savedProduct.description != null ? savedProduct.description : ''}"/>
+                                    <form:textarea id="description" class="form-control" path="description" placeholder="Mô tả"></form:textarea>
                                     <c:if test="${not empty errorDescription}">
                                         <div class="mt-1 text-danger align-content-center">
                                             <span class="">${errorDescription}</span>
                                         </div>
                                     </c:if>
-                                    <label>Mô tả</label>
                                 </div>
+
                                 <div class="form-floating mb-3">
                                     <form:input class="form-control" path="price" type="number"  placeholder="Giá" value="${savedProduct.price != null ? savedProduct.price : ''}"/>
                                     <c:if test="${not empty errorPrice}">
@@ -118,7 +120,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
-
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 </body>
 
 </html>

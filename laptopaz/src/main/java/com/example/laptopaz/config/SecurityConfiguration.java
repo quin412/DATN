@@ -64,6 +64,7 @@ public class SecurityConfiguration {
                                 "/admin/export",
                                 "/admin/day/export",
                                 "/admin/month/export").permitAll()
+                        .requestMatchers("/admin/order/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

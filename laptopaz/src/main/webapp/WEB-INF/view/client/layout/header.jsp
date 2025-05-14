@@ -1,11 +1,12 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Navbar start -->
-<div class="container-fluid fixed-top">
-    <div class="container px-0">
+<header>
+<div class="container-fluid fixed-top no-padding">
+    <div class="container">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a href="/" class="navbar-brand">
-                <h2 class="text-primary display-5" style="font-family: 'Century Gothic', sans-serif;">Laptop<span style= "color: red">AZ</span></h2>
+                <h2 class="text-primary display-5" style="font-family: 'Century Gothic', sans-serif; font-weight:bold">Laptop<span style= "color: red">AZ</span></h2>
             </a>
 
             <div class="collapse navbar-collapse bg-white justify-content-between me-4" id="navbarCollapse">
@@ -68,7 +69,7 @@
         </nav>
     </div>
 </div>
-
+</header>
 
 <style>
     .search-container {
@@ -116,4 +117,9 @@
         top: 50%;
         transform: translateY(-50%);
     }
+    .no-padding {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
 </style>

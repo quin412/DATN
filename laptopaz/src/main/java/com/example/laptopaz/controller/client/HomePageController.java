@@ -85,27 +85,32 @@ public class HomePageController {
             pageNum = Optional.of(1);
         }
 
-        if (productCriteriaDto.getName() != null) {
-            request.getSession().setAttribute("name", productCriteriaDto.getName());
+        String uri = request.getRequestURI();
+        if (uri.equals("/")) {
+            // Khi vào trang chủ ("/") thì xóa các filter cũ
+            request.getSession().removeAttribute("name");
+            request.getSession().removeAttribute("category");
+            request.getSession().removeAttribute("finalPrice");
         } else {
-            if (request.getSession().getAttribute("name") != null) {
+            if (productCriteriaDto.getName() != null) {
+                request.getSession().setAttribute("name", productCriteriaDto.getName());
+            } else if (request.getSession().getAttribute("name") != null) {
                 productCriteriaDto.setName((String) request.getSession().getAttribute("name"));
             }
-        }
-        if (productCriteriaDto.getCategory() != null && !productCriteriaDto.getCategory().isEmpty()) {
-            request.getSession().setAttribute("category", productCriteriaDto.getCategory());
-        } else {
-            request.getSession().removeAttribute("category"); // Xóa nếu không chọn
-        }
 
+            if (productCriteriaDto.getCategory() != null && !productCriteriaDto.getCategory().isEmpty()) {
+                request.getSession().setAttribute("category", productCriteriaDto.getCategory());
+            } else if (request.getSession().getAttribute("category") != null) {
+                productCriteriaDto.setCategory((String) request.getSession().getAttribute("category"));
+            }
 
-        if (productCriteriaDto.getPrice() != null && !productCriteriaDto.getPrice().isEmpty()) {
-            request.getSession().setAttribute("finalPrice", productCriteriaDto.getPrice());
-        } else {
-            if (request.getSession().getAttribute("finalPrice") != null) {
+            if (productCriteriaDto.getPrice() != null && !productCriteriaDto.getPrice().isEmpty()) {
+                request.getSession().setAttribute("finalPrice", productCriteriaDto.getPrice());
+            } else if (request.getSession().getAttribute("finalPrice") != null) {
                 productCriteriaDto.setPrice((String) request.getSession().getAttribute("finalPrice"));
             }
         }
+
 
         String sort = "createdDate";
         boolean isAsc = false;

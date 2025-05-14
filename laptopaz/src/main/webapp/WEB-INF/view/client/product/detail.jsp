@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title> ${product.name} - TCC</title>
+    <title> ${product.name} </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -50,6 +50,29 @@
         .product-price .discounted-price {
             color: red;
             display: block;
+        }
+        .product-description {
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        /* Chỉ hiện 5 dòng đầu */
+        .product-description.collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            max-height: 8em; /* tùy theo line-height */
+            overflow: hidden;
+        }
+
+        /* Khi mở rộng */
+        .product-description.expanded {
+            max-height: none;
+            -webkit-line-clamp: unset;
         }
     </style>
 
@@ -172,7 +195,7 @@
                             <div class="nav nav-tabs mb-3">
                                 <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
                                         id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
-                                        aria-controls="nav-about" aria-selected="true">Chi tiết
+                                        aria-controls="nav-about" aria-selected="true">Mô tả
                                 </button>
 
                             </div>
@@ -180,10 +203,14 @@
                         <div class="tab-content">
                             <div class="tab-pane active ps-2" id="nav-about" role="tabpanel"
                                  aria-labelledby="nav-about-tab">
-                                <p>${product.description}</p>
+                               <div class="tab-content">
+                                   <div class="tab-pane active ps-2" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                       <pre id="descriptionText" class="product-description collapsed">${product.description}
+                                       </pre>
+                                       <button id="toggleBtn" class="btn btn-link p-0">Xem thêm</button>
+                                   </div>
+                               </div>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -326,8 +353,6 @@
                 </c:forEach>
             </div>
         </div>
-
-
     </div>
 </div>
 <!-- Single Product End -->
@@ -350,6 +375,18 @@
 
 <script src="/client/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const desc = document.getElementById('descriptionText');
+        const btn = document.getElementById('toggleBtn');
+
+        btn.addEventListener('click', function () {
+            desc.classList.toggle('collapsed');
+            desc.classList.toggle('expanded');
+            btn.textContent = desc.classList.contains('expanded') ? 'Thu gọn' : 'Xem thêm';
+        });
+    });
+</script>
 
 </body>
 

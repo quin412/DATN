@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +16,12 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/4.1.0/apexcharts.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+    button:hover {
+        background-color: #009bbf;
+    }
+
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
@@ -24,7 +31,20 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">THỐNG KÊ</h1>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+                        <!-- Bên trái -->
+                        <h1 style="margin: 0; font-size: 28px;">THỐNG KÊ</h1>
+
+                        <!-- Bên phải -->
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 18px; font-weight: 500;">TẢI BÁO CÁO</span>
+                            <button
+                                onclick="downloadPdf()"
+                                style="padding: 8px 16px; background-color: #00BAEC; color: white; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; transition: 0.3s;">
+                                📄
+                            </button>
+                        </div>
+                    </div>
                 <ol class="breadcrumb mb-4">
 
                 </ol>
@@ -66,14 +86,11 @@
                             <div class="card-body font-weight-bold2 d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="text-uppercase">Doanh số toàn thời gian</div>
-                                    <div class="font-weight-bold">${totalRevenue}</div>
+                                    <div class="font-weight-bold"><span><fmt:formatNumber type="number" value="${totalRevenue}"/></span></div>
                                 </div>
                                 <span class="material-symbols-outlined text-success icon-large">payments</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-success">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
@@ -85,10 +102,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-primary icon-large">group</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-primary">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
@@ -100,10 +114,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-warning icon-large">receipt_long</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-warning">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
@@ -115,10 +126,7 @@
                                 </div>
                                 <span class="material-symbols-outlined text-danger icon-large">inventory_2</span>
                             </div>
-                            <div class="card-footer d-flex align-items-center justify-content-between bg-danger">
-                                <a class="small text-white stretched-link" href="#">Chi tiết</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -127,8 +135,8 @@
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div>
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Thống kê doanh thu
+                                    <h5><i class="fas fa-chart-column me-1"></i>
+                                    Thống kê doanh thu</h5>
                                 </div>
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-success" onclick="fetchRevenue('${date}');">Ngày</button>
@@ -143,8 +151,8 @@
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Thị phần các hãng
+                                <h5><i class="fas fa-chart-bar me-1"></i>
+                                Thị phần các hãng</h5>
                             </div>
                             <div class="card-body">
                                 <div id="pie-chart"></div>
@@ -154,11 +162,11 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Top sản phẩm
+                        <h5><i class="fas fa-table me-1"></i>
+                        SẢN PHẨM BÁN CHẠY</h5>
                     </div>
                     <div class="card-body">
-                        <table id="datatablesSimple">
+                        <table id="datatablesSimple" class="table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Mã sản phẩm</th>
@@ -172,10 +180,7 @@
                         </table>
                     </div>
                 </div>
-                <div>
-                    <h1>Xuất PDF</h1>
-                    <button onclick="downloadPdf()">Tải xuống</button>
-                </div>
+
             </div>
         </main>
         <jsp:include page="../layout/footer.jsp" />
@@ -487,7 +492,7 @@
             // Create a temporary link element
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'products.pdf'; // Set the filename
+            a.download = 'Baocaotongquat.pdf'; // Set the filename
             document.body.appendChild(a);
             a.click(); // Trigger the download
             a.remove(); // Remove the link from the DOM

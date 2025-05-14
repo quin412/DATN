@@ -1,10 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Hero Start -->
-<div class="container-fluid py-1 mb-1 hero-header">
+<div class="container-fluid hero-header no-padding">
     <div class="container py-3">
         <div class="row g-4 align-items-stretch">
-            <!-- Danh mục (sửa lại để bo góc và đẹp hơn) -->
+            <!-- Danh mục -->
             <div class="col-lg-2 col-md-3 col-sm-12">
                 <div class="category-box shadow-sm rounded-3 px-3 py-1">
                     <h4 class="text-center mb-4">Danh mục</h4>
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <!-- Carousel (tăng kích thước) -->
+            <!-- Carousel -->
             <div class="col-lg-8 col-md-8 col-sm-12">
                 <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -141,4 +141,21 @@
     .badge {
         font-size: 0.875rem;
     }
+    .carousel-control-prev,
+    .carousel-control-next {
+        background-color: #6c757d; /* Màu nền xám */
+        border-radius: 50%; /* Để các nút có dạng tròn */
+        opacity: 0.3;
+        transition: opacity 0.3s ease;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+    }
+    .no-padding {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
 </style>

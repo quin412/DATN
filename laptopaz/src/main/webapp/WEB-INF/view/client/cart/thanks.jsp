@@ -60,10 +60,10 @@
 
                            <!-- Nút điều hướng -->
                            <div class="mt-4 d-flex justify-content-center gap-3">
-                               <a href="/home" class="btn btn-outline-primary px-4 py-2">
+                               <a href="/" class="btn btn-outline-primary px-4 py-2">
                                    <i class="fas fa-home me-2"></i>Về trang chủ
                                </a>
-                               <a href="/cart/order-history" class="btn btn-primary px-4 py-2">
+                               <a href="/order-history" class="btn btn-primary px-4 py-2">
                                    <i class="fas fa-receipt me-2"></i>Xem lịch sử đặt hàng
                                </a>
                            </div>

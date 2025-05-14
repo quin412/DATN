@@ -13,6 +13,7 @@
     <link href="/css/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 </head>
 <body class="sb-nav-fixed">
 <jsp:include page="../layout/header.jsp"/>
@@ -79,14 +80,17 @@
 
                                 <div class="form-group">
                                     <label for="description">Mô tả</label>
-                                    <form:textarea id="description" path="description" class="form-control"
-                                                   placeholder="Mô tả sản phẩm"></form:textarea>
+                                    <div class="mb-2">
+                                        <form:textarea id="description" path="description" class="form-control" placeholder="Nhập mô tả"></form:textarea>
+                                    </div>
+
                                     <c:if test="${not empty errorDescription}">
                                         <div class="mt-1 text-danger align-content-center">
                                             <span>${errorDescription}</span>
                                         </div>
                                     </c:if>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label>Danh mục</label>
@@ -124,6 +128,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
-
+<script>
+    ClassicEditor
+        .create(document.querySelector('#description'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 </body>
 </html>

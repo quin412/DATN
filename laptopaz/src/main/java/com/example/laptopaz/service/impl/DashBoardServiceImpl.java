@@ -41,9 +41,7 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public int getTotalCustomer() {
-        return customerRepository.countCustomers();
-    }
+    public int getTotalCustomer() { return customerRepository.countCustomersByRoleId(2L);}
 
     @Override
     public Long getTotalRevenue() {

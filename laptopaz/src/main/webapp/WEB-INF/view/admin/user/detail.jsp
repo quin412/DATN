@@ -7,8 +7,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="TTTN - LaptopTCC" />
-        <meta name="author" content="TTTN" />
+    <meta name="description" content="DATN" />
+        <meta name="author" content="DATN" />
     <title>Thông tin tài khoản</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/admin/css/detail.css" rel="stylesheet" />
@@ -29,10 +29,7 @@
                 </ol>
                 <div class="mt-5">
                     <div class="row">
-
-
                             <hr />
-
                             <div class="col-md-8 offset-md-2">
                                 <div class="card">
                                         <div class="card-body">

@@ -10,8 +10,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="TTTN - LaptopTCC" />
-        <meta name="author" content="TTTN" />
+    <meta name="description" content="DATN" />
+        <meta name="author" content="DATN" />
     <title>Cập nhật đơn hàng</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -38,8 +38,6 @@
                             <hr />
                             <form:form method="post" action="/admin/order/update" class="row"
                                        modelAttribute="newBill">
-
-
                                 <div class="mb-3" style="display: none;">
                                     <label class="form-label">Id:</label>
                                     <form:input type="text" class="form-control" path="billId" />

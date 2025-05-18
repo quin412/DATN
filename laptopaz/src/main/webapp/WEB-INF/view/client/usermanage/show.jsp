@@ -51,34 +51,36 @@
     <jsp:include page="../layout/header.jsp"/>
 
     <div class="container-fluid fruite py-5 imgbanner">
-
-        <div class="container py-5 mt-4">
+        <div class="container pt-5 mt-4">
             <div class="tab-class text-center ">
-
                 <div class="row g-4">
-
                     <div class="col-lg-4 text-start">
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/">Quay lại</a></li>
                             <li class="breadcrumb-item active">Quản lý tài khoản</li>
                         </ol>
-
                     </div>
                     <div class="col-lg-8 text-end">
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
                             <li class="nav-item">
-                                <a class="d-flex m-2 py-2 bg-secondary rounded-pill active" href="/client/user/changepassword">
+                                <a class="d-flex m-2 py-2 bg-primary rounded-pill active" href="/client/user/changepassword">
                                     <span style="width: 130px;font-weight: bold;">Đổi mật khẩu</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <c:if test="${not empty update}">
-                    <div class="alert alert-primary text-info align-content-center tb-cn">
-                        <h4 class="">${update}</h4>
-                    </div>
-                </c:if>
+                 <c:if test="${not empty update}">
+                   <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                     <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; margin-right: 10px; flex-shrink: 0;" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 11.03a.75.75 0 0 0 1.07 0l3.992-3.992a.75.75 0 0 0-1.06-1.06L7.5 9.439 6.03 7.97a.75.75 0 1 0-1.06 1.06l2 2z"/>
+                     </svg>
+                     <div>
+                       <strong>${update}</strong>
+                     </div>
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                   </div>
+                 </c:if>
                 <div class="col-md-8 offset-md-2">
                     <div class="card">
                         <div class="card-body">
@@ -106,14 +108,12 @@
                                             <th class="title-width">Ngày sinh</th>
                                             <td>
                                                 <form:input path="dob" class="form-control" type="date" value="${not empty date ? date : ''}"/>
-
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <button class="btn btn-secondary py-2 rounded-pill text-light active" type="submit">Cập nhật</button>
+                                    <button class="btn btn-secondary py-2 rounded-pill text-white active" type="submit">Cập nhật</button>
                                 </form:form>
-
                             </div>
                         </div>
                     </div>

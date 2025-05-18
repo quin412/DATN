@@ -38,12 +38,11 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <div class="card shadow-lg border-0 rounded-lg mt-3">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Đăng ký</h3>
+                                <h3 class="text-center font-weight-light my-1">Đăng ký</h3>
                             </div>
                             <div class="card-body">
-
                                 <form:form class="form p-3" action="/register" method="post" modelAttribute="registerUser">
                                     <!-- Name input -->
                                     <div class="form-floating mb-3">

@@ -8,8 +8,8 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content="TTTN - LaptopTCC" />
-    <meta name="author" content="TTTN" />
+    <meta name="description" content="DATN" />
+    <meta name="author" content="DATN" />
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Thông tin đơn hàng</title>
@@ -25,17 +25,17 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Chi tiết đơn hàng</h1>
+                <h1 class="mt-2">Chi tiết đơn hàng</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/admin/order" class="nav-link">Đơn hàng</a></li>
                     <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
                 </ol>
 
-                <div class="mt-5">
+                <div class="mt-1">
                     <div class="row">
                         <div class="col-12 mx-auto">
                             <div class="d-flex justify-content-between">
-                                <h3>Chi tiết đơn hàng (Mã đơn hàng: ${order.billId})</h3>
+                                <h3>Mã đơn hàng: ${order.billId}</h3>
                             </div>
                             <hr/>
                             <div class="d-flex justify-content-between">

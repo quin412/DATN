@@ -25,33 +25,37 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Quản lý đơn hàng</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Đơn hàng</li>
-                </ol>
-                <div class="mt-5">
+                <div class="mt-3">
                     <div class="row">
                         <div class="col-12 mx-auto">
                             <div class="d-flex">
                                 <h3>Bảng đơn hàng</h3>
                             </div>
-
+                            <div class="mt-2">
+                            <select id="statusFilter" class="form-select" style="width: 200px; margin-bottom: 10px;">
+                              <option value="">Tất cả trạng thái</option>
+                              <option value="Giao hàng thành công">Giao hàng thành công</option>
+                              <option value="Đang giao hàng">Đang giao hàng</option>
+                              <option value="Đã xác nhận">Đã xác nhận</option>
+                              <option value="Chờ xác nhận">Chờ xác nhận</option>
+                              <option value="Đã hủy">Đã hủy</option>
+                              <option value="Từ chối">Từ chối</option>
+                            </select>
+                            </div>
                             <hr />
                             <c:if test="${ empty orders}">
                                 <tr>
                                     <td colspan="6">
-                                        Không có đơn hàng nào
+                                        Không có đơn hàng nào cần xác nhận
                                     </td>
                                 </tr>
                             </c:if>
                             <c:if test="${ not empty orders}">
-
-
                             <table class=" table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>Mã đơn</th>
-                                    <th>Tổng tiền</th>
+                                    <th>Tổng tiền (VNĐ)</th>
                                     <th>Ngày đặt hàng</th>
                                     <th>Người nhận</th>
                                     <th>Trạng thái</th>
@@ -64,7 +68,7 @@
                                         <th>${order.billId}</th>
                                         <td>
                                             <fmt:formatNumber type="number"
-                                                              value="${order.total}" /> đ
+                                                              value="${order.total}"/>
                                         </td>
                                         <td>
 
@@ -144,7 +148,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
+<script>
+document.getElementById('statusFilter').addEventListener('change', function() {
+  const selectedStatus = this.value;
+  const rows = document.querySelectorAll('table tbody tr');
 
+  rows.forEach(row => {
+    const statusText = row.cells[4].innerText.trim();
+    if (selectedStatus === "" || statusText === selectedStatus) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+});
+
+</script>
 </body>
 
 </html>

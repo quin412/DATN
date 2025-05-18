@@ -145,8 +145,7 @@
                             </div>
                            <div class="d-flex justify-content-center">
                                <button id="btn-confirm"
-                                       class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4">
-                                   Mua Ngay
+                                       class="btn btn-danger rounded-pill px-4 py-3 text-white text-uppercase mb-4">Mua Ngay
                                </button>
                            </div>
                         </form:form>

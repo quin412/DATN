@@ -23,7 +23,6 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Quản lý danh mục</h1>
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-12 mx-auto">

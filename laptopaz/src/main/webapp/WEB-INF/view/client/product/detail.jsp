@@ -103,9 +103,8 @@
                     </ol>
                 </nav>
             </div>
-            <div ><h4 class="fw-bold mb-3"> ${product.name}</h4></div>
+            <div ><h5 class="fw-bold"> ${product.name}</h5></div>
             <div class="col-lg-8 col-xl-8">
-
                 <div class="row g-4">
                     <div class="col-lg-6 text-center">
                         <div class="border rounded">
@@ -133,16 +132,15 @@
                     </div>
                     <div class="col-lg-6">
 
-                        <p class="mb-3">${product.category.name}</p>
-                        <p class="mb-3">Số lượng còn lại : ${product.quantity}</p>
-                        <div class="product-price">
+                        <p class="mb-3">Thương hiệu: ${product.category.name}</p>
+                        <p class="mb-3">Số lượng còn lại: ${product.quantity}</p>
+                        <div class="product-price mb-3">
                             <h5 class="original-price"><fmt:formatNumber type="number"
                                                                          value="${product.price}"/> đ</h5>
                             <h5 class="discounted-price"><fmt:formatNumber type="number"
-                                                                           value="${product.price - (product.discount * product.price / 100)}"/>
-                                đ</h5>
+                                                                           value="${product.price - (product.discount * product.price / 100)}"/>đ</h5>
                         </div>
-                        <div class="d-flex mb-4">
+                        <div class="d-flex mb-3">
                             <c:set var="fullStars" value="${rate div 1}"/>
                             <c:set var="halfStar" value="${rate % 1 > 0 ? 1 : 0}"/>
                             <c:set var="emptyStars" value="${5 - fullStars - halfStar}"/>
@@ -183,9 +181,7 @@
                                id="cartDetails0.quantity" value="1"/>
                         <button data-product-id="${product.productId}"
                                 class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
-                            <i
-                                    class="fa fa-shopping-bag me-2 text-danger"></i>
-                            Thêm vào giỏ hàng
+                            <i class="fa fa-shopping-bag me-2 text-danger"></i>Thêm vào giỏ hàng
                         </button>
                         <!-- </form> -->
 

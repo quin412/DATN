@@ -8,8 +8,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="TTTN - LaptopTCC" />
-        <meta name="author" content="TTTN" />
+    <meta name="description" content="DATN" />
+        <meta name="author" content="DATN" />
     <title>Tài khoản</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/admin/css/show.css" rel="stylesheet"/>
@@ -23,7 +23,6 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Quản lý tài khoản</h1>
                 <div class="mt-5">
                     <div class="row">
                         <div class="col-12 mx-auto">
@@ -38,7 +37,7 @@
                                 <div style="width: 20%"></div>
                             </div>
                             <hr />
-                            <table class="table table-bordered table-hover table-striped" style="width: 80%; margin: 0 auto;">
+                            <table class="table table-bordered table-hover table-striped my-3" style="width: 80%; margin: 0 auto;">
                                 <thead class="table-dark">
                                     <tr>
                                         <th class="text-center">ID</th>

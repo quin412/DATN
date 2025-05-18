@@ -225,8 +225,7 @@
 
                             <div class="center-btn-container">
                                 <button id="confirmPaymentBtn" onclick=""
-                                        class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4 ">
-                                    Xác nhận thanh toán
+                                        class="btn btn-success rounded-pill px-4 py-3 text-white text-uppercase mb-4 ms-4 ">Xác nhận thanh toán
                                 </button>
                             </div>
 

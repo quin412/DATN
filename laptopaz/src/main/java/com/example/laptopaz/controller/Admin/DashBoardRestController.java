@@ -33,4 +33,11 @@ public class DashBoardRestController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/low-selling-products")
+    public ResponseEntity<List<ProductDto>> getLowSellingProducts() {
+        List<ProductDto> products = dashBoardService.getLowSellingProducts();
+        return ResponseEntity.ok(products);
+    }
+
+
 }

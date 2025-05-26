@@ -94,4 +94,19 @@ public class DashBoardServiceImpl implements DashBoardService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductDto> getLowSellingProducts() {
+        List<Object[]> results = productRepository.findLowSellingProducts();
+
+        return results.stream()
+                .map(row -> new ProductDto(
+                        ((Number) row[0]).longValue(),  // product_id
+                        (String) row[1],                // name
+                        (String) row[2],                // category_name
+                        ((Number) row[3]).longValue(),  // price
+                        ((Number) row[4]).intValue()    // total_sales
+                ))
+                .collect(Collectors.toList());
+    }
 }

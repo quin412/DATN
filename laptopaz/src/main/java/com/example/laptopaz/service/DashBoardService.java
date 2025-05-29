@@ -24,4 +24,6 @@ public interface DashBoardService {
 
     List<ProductDto> getProductsWithSales(String orderBy);
 
+    List<ProductDto> getLowSellingProducts();
+
 }

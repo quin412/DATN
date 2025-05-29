@@ -122,17 +122,33 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     );
 
     @Query(value = """
-        SELECT p.* FROM products p
-        LEFT JOIN bill_detail bd ON p.product_id = bd.product_id
-        GROUP BY p.product_id
-        ORDER BY SUM(bd.quantity) DESC
-    """,
+                SELECT p.* FROM products p
+                LEFT JOIN bill_detail bd ON p.product_id = bd.product_id
+                GROUP BY p.product_id
+                ORDER BY SUM(bd.quantity) DESC
+            """,
             countQuery = """
-        SELECT COUNT(DISTINCT p.product_id) FROM products p
-        LEFT JOIN bill_detail bd ON p.product_id = bd.product_id
-    """,
+                        SELECT COUNT(DISTINCT p.product_id) FROM products p
+                        LEFT JOIN bill_detail bd ON p.product_id = bd.product_id
+                    """,
             nativeQuery = true)
     Page<Product> findTopSellingProducts(Pageable pageable);
+
+    @Query(value = """
+                SELECT 
+                    p.product_id AS product_id,
+                    p.name AS name,
+                    c.name AS category_name,
+                    p.price AS price,
+                    COALESCE(SUM(bd.quantity), 0) AS total_sales
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.category_id
+                LEFT JOIN bill_detail bd ON p.product_id = bd.product_id
+                GROUP BY p.product_id, p.name, c.name, p.price
+                HAVING COALESCE(SUM(bd.quantity), 0) <= 1
+            """, nativeQuery = true)
+    List<Object[]> findLowSellingProducts();
+
 
     @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId " +
             "AND p.price BETWEEN :minPrice AND :maxPrice " +

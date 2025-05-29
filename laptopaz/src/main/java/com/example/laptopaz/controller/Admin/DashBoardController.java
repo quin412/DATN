@@ -46,17 +46,25 @@ public class DashBoardController {
         return dashBoardService.getProductsWithSales(orderBy);
     }
 
+    @GetMapping("/low-selling-products")
+    @ResponseBody
+    public List<ProductDto> getLowSellingProducts() {
+        return dashBoardService.getLowSellingProducts();
+    }
+
     @GetMapping("/revenue")
     @ResponseBody
-    public List<RevenueDto> getRevenue(@RequestParam(required = false) String startDate, @RequestParam(required = false) String year) {
-        if (startDate != null) {
+    public List<RevenueDto> getRevenue(@RequestParam(required = false) String startDate,
+                                       @RequestParam(required = false) String year) {
+        if (startDate != null && !startDate.trim().isEmpty()) {
             return dashBoardService.getDailyRevenue(LocalDate.parse(startDate), LocalDate.now());
-        } else if (year != null) {
+        } else if (year != null && !year.trim().isEmpty()) {
             return dashBoardService.getMonthlyRevenue(year);
         } else {
             throw new IllegalArgumentException("Either startDate or year must be provided");
         }
     }
+
 
     @GetMapping("/revenue2")
     @ResponseBody

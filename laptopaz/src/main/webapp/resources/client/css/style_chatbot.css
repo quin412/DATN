@@ -10,7 +10,7 @@ body {
     position: fixed;
     bottom: 160px;
     right: 20px;
-    width: 350px;
+    width: 450px;
     display: none;
     border: none;
     border-radius: 15px;
@@ -104,6 +104,7 @@ body {
 }
 
 .chat-message {
+    white-space: pre-line;
     display: flex;
     margin: 5px 0;
     align-items: center;

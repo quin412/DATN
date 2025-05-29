@@ -24,7 +24,7 @@ function sendMessage() {
         const waitingMessage = document.createElement('div');
         waitingMessage.classList.add('chat-message', 'bot');
         const waitingText = document.createElement('p');
-        waitingText.textContent = 'Wating...';
+        waitingText.textContent = 'Waiting...';
         waitingMessage.appendChild(waitingText);
         chatBody.appendChild(waitingMessage);
         chatBody.scrollTop = chatBody.scrollHeight;
@@ -40,18 +40,20 @@ function sendMessage() {
         })
             .then(response => response.json())
             .then(response => {
-                // Remove "waiting" indicator
                 chatBody.removeChild(waitingMessage);
 
-                // Display bot response
                 const botMessage = document.createElement('div');
                 botMessage.classList.add('chat-message', 'bot');
                 const botText = document.createElement('p');
-                botText.textContent = response || 'Sorry, something went wrong.';
+
+                // Lấy đúng key từ response
+                let text = response.answer || response.response || 'Sorry, something went wrong.';
+                botText.textContent = text;
                 botMessage.appendChild(botText);
                 chatBody.appendChild(botMessage);
                 chatBody.scrollTop = chatBody.scrollHeight;
             })
+
             .catch(error => {
                 console.error('Error:', error);
 

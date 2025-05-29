@@ -32,7 +32,7 @@ public class Product extends DateAuditing implements Serializable {
     @Min(value = 0, message = "Số lượng phải lớn hơn 0")
     private long quantity;
 
-
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Min(value = 0, message = "Giá phải lớn hơn 0")

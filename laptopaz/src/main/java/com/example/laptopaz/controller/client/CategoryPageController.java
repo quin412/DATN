@@ -39,8 +39,8 @@ public class CategoryPageController {
 
         model.addAttribute("cates", categories);
         model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", categoryPage.getTotalPages());
-
+        int totalPages = categoryPage.getTotalPages() > 0 ? categoryPage.getTotalPages() : 1;
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("newCategory", new Category());
         return "admin/category/show";
     }
@@ -70,7 +70,8 @@ public class CategoryPageController {
 
         model.addAttribute("cates", categories);
         model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", categoryPage.getTotalPages());
+        int totalPages = categoryPage.getTotalPages() > 0 ? categoryPage.getTotalPages() : 1;
+        model.addAttribute("totalPages", totalPages);
         return "admin/category/show";
     }
 
@@ -84,6 +85,10 @@ public class CategoryPageController {
     public String createCategoryPage(Model model, @ModelAttribute("newCate") Category category) {
         Category newCate = this.categoryService.getCategoryByName(category.getName());
         if (newCate == null) {
+            if (this.categoryService.countCategories() == 0) {
+                this.categoryService.resetAutoIncrement();
+            }
+
             category.setCreatedDate(LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()));
             category.setLastModifiedDate(LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()));
             this.categoryService.saveCategory(category);
@@ -92,8 +97,8 @@ public class CategoryPageController {
             model.addAttribute("error", "Danh mục đã tồn tại");
             return "admin/category/create";
         }
-
     }
+
 
     @GetMapping("/admin/category/update/{Id}")
     public String getupdateCategoryPage(Model model, @PathVariable long Id) {
@@ -128,6 +133,9 @@ public class CategoryPageController {
     @GetMapping("/admin/category/delete/{Id}")
     public String getdeleteCategoryPage(Model model, @PathVariable long Id) {
         Category category = this.categoryService.getCategoryById(Id);
+        if (category == null) {
+            return "redirect:/admin/category?error=notfound";
+        }
         model.addAttribute("cate", category);
         model.addAttribute("newCate", new Category());
         return "admin/category/delete";

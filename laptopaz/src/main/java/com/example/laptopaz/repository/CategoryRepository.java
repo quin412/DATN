@@ -77,4 +77,9 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             GROUP BY c.name
             """, nativeQuery = true)
     List<Object[]> findCategoryRevenueAndMarketShareDate(@Param("selectedDate") LocalDate selectedDate);
+
+    @Modifying
+    @Query(value = "ALTER TABLE categories AUTO_INCREMENT = 1", nativeQuery = true)
+    void resetAutoIncrement();
+
 }

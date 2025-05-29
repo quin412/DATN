@@ -35,15 +35,11 @@
                             <div class="alert alert-danger">
                                 Bạn có chắc chắn muốn xóa người dùng này ?
                             </div>
-                            <form:form method="post" action="/admin/user/delete"
-                                       modelAttribute="newUser">
-                                <div class="mb-3" style="display: none">
-                                    <label class="form-label" >Id:</label>
-                                    <form:input value="${cus.customerId}" type="text" class="form-control"
-                                                path="customerId" />
-                                </div>
+                            <form method="post" action="/admin/user/delete">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <input type="hidden" name="customerId" value="${cus.customerId}" />
                                 <button type="submit" class="btn btn-danger">Xóa</button>
-                            </form:form>
+                            </form>
 
                         </div>
 

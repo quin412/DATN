@@ -4,6 +4,7 @@ import com.example.laptopaz.domain.entity.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -34,11 +35,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Page<Customer> findCustomerByRoleRoleId(Long roleId, Pageable pageable);
 
     Page<Customer> findByNameAndRoleRoleId(@Param("name") String name, @Param("roleId") Long roleId, Pageable pageable);
-
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE users c set c.is_deleted = true  WHERE  c.customer_id = ?1", nativeQuery = true)
-    void deleteCustomer(long id);
 
     @Query("SELECT COUNT(c) FROM Customer c WHERE MONTH(c.createdDate) = :month AND YEAR(c.createdDate) = :year")
     int countCustomersByMonthAndYear(@Param("month") int month, @Param("year") int year);

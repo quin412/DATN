@@ -2,6 +2,7 @@ package com.example.laptopaz.service.impl;
 
 import com.example.laptopaz.domain.entity.Category;
 import com.example.laptopaz.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,4 +53,14 @@ public class CategoryServiceImpl {
         this.productRepository.updateCategoryToNull(id);
         this.categoryRepository.deleteByCategoryId(id);
     }
+
+    public int countCategories() {
+        return categoryRepository.countCategories();
+    }
+
+    @Transactional
+    public void resetAutoIncrement() {
+        categoryRepository.resetAutoIncrement();
+    }
+
 }

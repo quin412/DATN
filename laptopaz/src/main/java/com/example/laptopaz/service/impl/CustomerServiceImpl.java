@@ -3,9 +3,11 @@ package com.example.laptopaz.service.impl;
 import com.example.laptopaz.domain.dto.request.RegisterRequestDto;
 import com.example.laptopaz.domain.entity.Cart;
 import com.example.laptopaz.domain.entity.Customer;
+import com.example.laptopaz.repository.CartDetailRepository;
 import com.example.laptopaz.repository.CartRepository;
 import com.example.laptopaz.repository.CustomerRepository;
 import com.example.laptopaz.repository.RoleRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ public class CustomerServiceImpl {
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
     private final CartRepository cartRepository;
+    private final CartDetailRepository cartDetailRepository;
     private final RoleRepository roleRepository;
 
     public Customer getCustomerByEmail(String email) {
@@ -59,13 +62,24 @@ public class CustomerServiceImpl {
         return customerRepository.findByCustomerId(id);
     }
 
-    public void deleteCustomerById(long id) {
-        Customer c = customerRepository.findByCustomerId(id);
-        c.setPassword("a");
-        customerRepository.save(c);
-        this.customerRepository.deleteCustomer(id);
+    @Transactional
+    public void deleteCustomer(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        if (customer == null) return;
 
+        // Nếu customer có cart thì phải xóa cart trước
+        Cart cart = cartRepository.findByCustomer(customer);
+        if (cart != null) {
+            // Nếu cart có cartDetails thì xóa luôn
+            cartDetailRepository.deleteAllByCart(cart);
+            cartRepository.delete(cart);
+        }
+
+        // Xóa customer sau cùng
+        customerRepository.delete(customer);
     }
+
+
 
     public Customer getCurrentCustomer() {
 

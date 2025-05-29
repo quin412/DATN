@@ -58,6 +58,7 @@ public class CustomerManageConTroller {
 
     }
 
+
     @GetMapping("/client/user/changepassword")
     public String getChangePasswordPage(Model model) {
         model.addAttribute("newPass", new ChangePassRequestDto());
